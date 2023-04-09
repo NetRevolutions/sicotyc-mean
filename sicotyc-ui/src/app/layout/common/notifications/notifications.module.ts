@@ -1,19 +1,23 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LandingHomeComponent } from './home.component';
+import { NotificationsComponent } from './notifications.component';
 import { RouterModule } from '@angular/router';
-import { landingHomeRoutes } from './home.routing';
 import { SharedModule } from 'app/shared/shared.module';
 
 
 
 @NgModule({
   declarations: [
-    LandingHomeComponent
+    NotificationsComponent
   ],
   imports: [
-    RouterModule.forChild(landingHomeRoutes),
+    RouterModule,
     SharedModule
+  ],
+  exports: [
+    NotificationsComponent
   ]
 })
-export class LandingHomeModule { }
+export class NotificationsModule 
+{
+}

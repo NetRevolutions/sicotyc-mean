@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { LandingHomeComponent } from './home.component';
+import { RateCalculationProvinceComponent } from './province.component';
 import { RouterModule } from '@angular/router';
-import { landingHomeRoutes } from './home.routing';
 import { SharedModule } from 'app/shared/shared.module';
+import { rateCalculationProvinceRoutes } from './province.routing';
 
 
 
 @NgModule({
   declarations: [
-    LandingHomeComponent
+    RateCalculationProvinceComponent
   ],
   imports: [
-    RouterModule.forChild(landingHomeRoutes),
+    RouterModule.forChild(rateCalculationProvinceRoutes),
     SharedModule
   ]
 })
-export class LandingHomeModule { }
+export class ProvinceModule { }
