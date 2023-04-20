@@ -20,6 +20,7 @@ El Sistema estara construido basado en las siguientes tecnologias:
 - Backend: nodeJS, RestAPI (incluido API Sunat)
 - Servidor: ExpresJS
 - Base de Datos: MongoDB
+- Plantillas base: AdminLTE (https://www.npmjs.com/package/admin-lte)
 
 ## Creador - Jose Rodriguez Arruela
 Este proyecto lo vengo diseñando desde el 2020, tengo la documentacion de la arquitectura y flujos completos los cuales en base a mi disponibilidad de tiempo lo vengo implementando.
