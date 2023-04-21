@@ -60,12 +60,13 @@
             <div class="form-group row">
                 <label for="fechaServicio" class="col-sm-2 col-form-label">Fecha del Servicio</label>
                 <div class="col-sm-4">
-                    <div class="input-group date" id="fechaServicio" data-target-input="nearest">
+                    <input type="date" class="form-control" id="fechaServicio" name="fechaServicio">
+                    <!-- <div class="input-group date" id="fechaServicio" data-target-input="nearest">
                         <input type="text" class="form-control datetimepicker-input" data-target="#fechaServicio">
                         <div class="input-group-append" data-target="#fechaServicio" data-toggle="datetimepicker">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
                 <label for="tamanioContenedor" class="col-sm-2 col-form-label">Tamaño de Cont.</label>
                 <div class="col-sm-2">
@@ -171,13 +172,74 @@
                         <option value="NORCustodia">NO</option>                        
                     </select>
                 </div>
-            </div>        
+            </div>                            
         </div>
         <!-- /.card-body -->
         <div class="card-footer text-center">
-          <button type="submit" class="btn btn-primary mr-2">Calcular Flete</button>
-          <button type="submit" class="btn btn-danger">Limpiar Datos</button>
+          <button type="submit" class="btn btn-primary mr-2">
+            <i class="fa fa-wrench"></i> Calcular Flete</button>
+          <button type="submit" class="btn btn-danger">
+            <i class="fa fa-eraser"></i> Limpiar Datos</button>
         </div>
         <!-- /.card-footer -->
+        <div class="card-body" id="results" name="results">
+            <h5>Resultados del Calculo</h5>
+            <div class="form-group row">
+                <span class="col-sm-2">Tipo de Servicio:</span>
+                <span class="col-sm-4" id="rTipoServicioValue" >Importacion</span>
+            </div>
+            <div class="form-group row">
+                <span class="col-sm-2">Fecha del Servicio:</span>
+                <span class="col-sm-4" id="rFechaServicioValue">20-01-2023</span>
+            </div>
+            <div class="form-group row">
+                <span class="col-sm-2">Tamaño de Cont.:</span>
+                <span class="col-sm-4" id="rTamanioContenedorValue">40</span>
+            </div>
+            <div class="form-group row">
+                <span class="col-sm-2">Origen:</span>
+                <span class="col-sm-4" id="rPuntoAValue">Callao - DPW Callao, Av. Manco Capac 113 - Callao</span>
+            </div>
+            <div class="form-group row">
+                <span class="col-sm-2">Destino:</span>
+                <span class="col-sm-4" id="rPuntoBValue">Lurin - Altura del Puente San Pedro</span>
+            </div>
+            <div class="form-group row">
+                <span class="col-sm-2">Lugar de Devol.:</span>                
+                <span class="col-sm-4" id="rPuntoCValue">DPWL Gambeta 1</span>
+            </div>
+            <div class="form-group row">
+                <span class="col-sm-2">Flete:</span>
+                <span class="col-sm-4 font-weight-bold" id="rFleteValue">S/.950 (negociable)(*)</span>
+            </div>
+            <div class="form-group row">
+                <span class="col-sm-2">Requiere Cuadrilla:</span>
+                <span class="col-sm-4" id="rRequiereCuadrillaValue">No (**)</span>
+            </div>
+            <div class="form-group row">
+                <span class="col-sm-2">Requiere Custodia:</span>
+                <span class="col-sm-4" id="rRequiereCustodiaValue">No (**)</span>
+            </div>
+            <div class="form-group-row">
+                <span class="col-sm-6 font-italic"><small><b>(*) El flete no incluye el IGV</b></small></span>
+            </div>
+            <div class="form-group-row">
+                <span class="col-sm-6 font-italic"><small><b>(**) Los precios de cuadrilla y custodia seran adicionales al flete</b></small></span>
+            </div>
+            <div class="form-group">
+                <label for="rComments">Comentarios y/o Observaciones adicionales</label>
+                <textarea class="form-control" name="rComments" id="rComments" cols="10" rows="2"></textarea>
+            </div>
+            <div class="form-group">
+                <div class="custom-control custom-checkbox">
+                    <input class="custom-control-input" type="checkbox" id="chbxAgree" checked="">
+                    <label for="chbxAgree" class="custom-control-label">Los datos ingresados son reales para ser contactado por un representante</label>
+                </div>
+            </div>
+            <div class="form-group text-center">
+                <button type="submit" class="btn btn-primary mr-2" id="requestService">
+                    <i class="fa fa-envelope"></i> Solicitar Servicio</button>
+            </div>
+        </div>
     </form>  
 </div>
