@@ -1,0 +1,25 @@
+<!-- Sidebar Menu -->
+<nav class="mt-2">
+    <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+      <!-- Add icons to the links using the .nav-icon class
+           with font-awesome or any other icon font library -->
+      <li class="nav-item" *ngFor="let item of menuItems">
+        <a href="#" class="nav-link">
+          <i class="{{item.icon}}"></i>
+          <p>
+            {{item.title}}
+            <i *ngIf="item.submenu.length>0" class="right fas fa-angle-left"></i>
+          </p>
+        </a>
+        <ul class="nav nav-treeview" *ngFor="let subMenuItem of item.submenu">
+          <li class="nav-item">
+            <a [routerLink]="subMenuItem.url" class="nav-link">
+              <i class="{{subMenuItem.icon}}"></i>
+              <p>{{subMenuItem.title}}</p>
+            </a>
+          </li>
+        </ul>
+      </li>      
+    </ul>
+</nav>
+<!-- /.sidebar-menu -->

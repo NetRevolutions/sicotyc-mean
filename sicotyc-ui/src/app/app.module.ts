@@ -1,32 +1,33 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { ExtraOptions, PreloadAllModules, RouterModule } from '@angular/router';
 
-import { AppComponent } from './app.component';
-import { appRoutes } from './app.routing';
+// Modules
+import { AppRoutingModule } from './app.routing';
+import { PagesModule } from './pages/pages.module';
+import { AuthModule } from './core/auth/auth.module';
 import { CoreModule } from './core/core.module';
-import { LayoutModule } from './layout/layout.module';
 
-const routerConfig: ExtraOptions = {
-  preloadingStrategy        : PreloadAllModules,
-  scrollPositionRestoration : 'enabled'
-};
+// Components
+import { AppComponent } from './app.component';
+import { Error500Component } from './error/error-500/error-500.component';
+import { Error404Component } from './error/error-404/error-404.component';
+
 
 @NgModule({
   declarations: [
     AppComponent,
+    Error500Component,
+    Error404Component
   ],
   imports: [
     BrowserModule,
-    RouterModule.forRoot(appRoutes, routerConfig),
-
+    AppRoutingModule,
+    PagesModule,
+    AuthModule,
     // Core module of your application
     CoreModule,
 
-    // Layout module of your application
-    LayoutModule
   ],
-  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
