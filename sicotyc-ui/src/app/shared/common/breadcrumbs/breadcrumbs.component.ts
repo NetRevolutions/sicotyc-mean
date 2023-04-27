@@ -1,27 +1,28 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewContainerRef, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
+import { ActivationEnd, Router } from '@angular/router';
+import { filter, map, Subscription } from 'rxjs';
 import { BreadcrumbsService } from './breadcrumbs.service';
 
 @Component({
-  selector: 'breadcrumbs',
+  selector: 'app-breadcrumbs',
   templateUrl: './breadcrumbs.component.html',
   encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  changeDetection: ChangeDetectionStrategy.Default,
   exportAs: 'app-breadcrumbs'
 })
 export class BreadcrumbsComponent implements OnInit, OnDestroy
 {
-
+  public title: String;
+  public titleSubs$: Subscription;
 
   /**
    * Constructor
    */
-  constructor(
-    private _changeDetectorRef: ChangeDetectorRef,
-    private _breadcrumbService: BreadcrumbsService,
-    private _viewContainerRef: ViewContainerRef
-  )
-  {
-
+  constructor( private _router: Router) {
+    this.titleSubs$ = this.getPathTitle()
+                        .subscribe(({title}) => {      
+                          this.title = title;;
+                        });
   }
 
   // -----------------------------------------------------------------------------------------------------
@@ -41,11 +42,18 @@ export class BreadcrumbsComponent implements OnInit, OnDestroy
    */
   ngOnDestroy(): void
   {
-
+    this.titleSubs$.unsubscribe();
   }
 
   // -----------------------------------------------------------------------------------------------------
   // @ Public methods
   // -----------------------------------------------------------------------------------------------------
-
+  getPathTitle() {
+    return this._router.events
+    .pipe(
+      filter( event => event instanceof ActivationEnd),
+      filter( (event: ActivationEnd) => event.snapshot.firstChild === null ),
+      map((event: ActivationEnd) => event.snapshot.data ),
+    );
+  }
 }

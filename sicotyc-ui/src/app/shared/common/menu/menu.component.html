@@ -4,7 +4,7 @@
       <!-- Add icons to the links using the .nav-icon class
            with font-awesome or any other icon font library -->
       <li class="nav-item" *ngFor="let item of menuItems">
-        <a href="#" class="nav-link">
+        <a [routerLink]="" class="nav-link">
           <i class="{{item.icon}}"></i>
           <p>
             {{item.title}}
@@ -13,7 +13,7 @@
         </a>
         <ul class="nav nav-treeview" *ngFor="let subMenuItem of item.submenu">
           <li class="nav-item">
-            <a [routerLink]="subMenuItem.url" class="nav-link">
+            <a [routerLink]="subMenuItem.url" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" class="nav-link">
               <i class="{{subMenuItem.icon}}"></i>
               <p>{{subMenuItem.title}}</p>
             </a>

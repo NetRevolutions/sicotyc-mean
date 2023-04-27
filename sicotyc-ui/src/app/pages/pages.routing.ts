@@ -10,15 +10,15 @@ export const routes: Routes = [
         path: 'dashboard',
         component: PagesComponent,
         children: [
-            { path: '', component: DashboardComponent}
+            { path: '', component: DashboardComponent, data: {title: 'Dashboard'}}
         ]
     },
     {
         path: 'calculo-tarifas',
         component: PagesComponent,
         children: [
-            {path: 'lima-callao', component: RateCalculationLimaCallaoComponent},
-            {path: 'provincia', component: RateCalculationProvinceComponent}
+            { path: 'lima-callao', component: RateCalculationLimaCallaoComponent, data: {title: 'Calculo Tarifas Lima - Callao'}},
+            { path: 'provincia', component: RateCalculationProvinceComponent, data: {title: 'Calculo Tarifas Provincia'}}
         ]
     }
 ];
