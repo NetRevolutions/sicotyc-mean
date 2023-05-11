@@ -4,7 +4,18 @@ const LCG = require('../models/lookupCodeGroup');
 
 const getLookupCodes = async(req, res = response) => {
     
-    const lc = await LC.find({}).sort({lookupCodeOrder: 1});
+    const lc = await LC.find({}).sort({ lookupCodeGroupId: 1, lookupCodeOrder: 1});
+
+    res.json({
+        ok: true,
+        lookupCodes: lc
+    });
+};
+
+const getLookupCodesByLCG = async(req, res = response) => {
+    const lcgId = req.params.lcgId;
+
+    const lc = await LC.find({ lookupCodeGroupId: lcgId}).sort({ lookupCodeGroupId: 1, lookupCodeOrder: 1});
 
     res.json({
         ok: true,
@@ -148,6 +159,7 @@ const deleteLookupCode = async( req, res = response ) => {
 
 module.exports = {
     getLookupCodes,
+    getLookupCodesByLCG,
     createLookupCodes,
     updateLookupCodes,
     deleteLookupCode

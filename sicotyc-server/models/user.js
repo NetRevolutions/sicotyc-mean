@@ -12,7 +12,11 @@ const UserSchema = Schema({
     imagePath                 : { type: String },
     role                      : { type: ObjectId, ref: 'Role' },
     refreshToken              : { type: String },
-    refreshTokenExpiryTime    : { type: Date }
+    refreshTokenExpiryTime    : { type: Date },
+    createdBy                 : { type: String, required: true, default: 'SYSTEM' },
+    createdUtc                : { type: Date, required: true, default: new Date() },
+    lastModifiedBy            : { type: String, required: false },
+    lastModifiedUtc           : { type: Date, required: false }
 });
 
 UserSchema.method('toJSON', function() {

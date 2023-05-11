@@ -11,7 +11,8 @@ const {
     getLookupCodes,
     createLookupCodes,
     updateLookupCodes,
-    deleteLookupCode
+    deleteLookupCode,
+    getLookupCodesByLCG
 } = require('../controllers/lookupCode-controller');
 
 const router = Router();
@@ -21,6 +22,13 @@ router.get( '/',
         validateJWT
     ],
     getLookupCodes
+);
+
+router.get( '/:lcgId', 
+    [
+        validateJWT
+    ],
+    getLookupCodesByLCG
 );
 
 router.post('',
