@@ -1,7 +1,7 @@
 const { Schema, model } = require('mongoose');
 
 const RoleSchema = Schema({    
-    roleName          : { type: String, required: true },
+    roleName          : { type: String, required: true, unique: true },
     createdBy         : { type: String, required: true, default: 'SYSTEM' },
     createdUtc        : { type: Date, required: true, default: new Date() },
     lastModifiedBy    : { type: String, required: false },

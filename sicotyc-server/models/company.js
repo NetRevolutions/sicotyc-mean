@@ -9,7 +9,7 @@ const CompanySchema = new Schema({
     domicilioFiscal           : { type: String },
     companyEmail              : { type: String, required: true},
     companyPhone              : { type: String, required: true },
-    typeOfCompanyId           : { type: ObjectId, required: true },
+    typeOfCompany_id          : { type: String, required: true },
     createdBy                 : { type: String, required: true, default: 'SYSTEM' },
     createdUtc                : { type: Date, required: true, default: new Date() },
     lastModifiedBy            : { type: String, required: false },

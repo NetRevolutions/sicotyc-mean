@@ -3,8 +3,8 @@ const { Schema, model } = require('mongoose');
 const ObjectId = Schema.Types.ObjectId;
 
 const UseRoleSchema = Schema({
-    userId            : { type: ObjectId, required: true },
-    roleId            : { type: ObjectId, required: true },
+    user_id           : { type: ObjectId, required: true, ref: 'User' },
+    role_id           : { type: ObjectId, required: true, ref: 'Role' },
     createdBy         : { type: String, required: true, default: 'SYSTEM' },
     createdUtc        : { type: Date, required: true, default: new Date() },
     lastModifiedBy    : { type: String, required: false },

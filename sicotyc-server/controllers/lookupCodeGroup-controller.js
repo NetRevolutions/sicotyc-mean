@@ -93,7 +93,7 @@ const deleteLookupCodeGroup = async(req, res = response) => {
         }
 
         // Validar si existe algun Lookup Code asociado al Lookup Code Group
-        const existLCGInLC = await LC.findOne({ lookupCodeGroupId: id });
+        const existLCGInLC = await LC.findOne({ lookupCodeGroup_id: id });
         
         if ( existLCGInLC ) {
             return res.status(404).json({
