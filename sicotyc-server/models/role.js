@@ -1,11 +1,9 @@
-const { Schema, model } = require('mongoose');
+const { Schema, model }   = require('mongoose');
+const { TrackingSchema }  = require('./tracking');
 
 const RoleSchema = Schema({    
     roleName          : { type: String, required: true, unique: true },
-    createdBy         : { type: String, required: true, default: 'SYSTEM' },
-    createdUtc        : { type: Date, required: true, default: new Date() },
-    lastModifiedBy    : { type: String, required: false },
-    lastModifiedUtc   : { type: Date, required: false }
+    ...TrackingSchema
 }, 
 { 
     collection: 'roles' // <== con esto indico el nombre que debe de mostrarse en la collecion 

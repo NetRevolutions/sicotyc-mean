@@ -1,4 +1,5 @@
 const { Schema, model }   = require('mongoose');
+const { TrackingSchema }  = require('./tracking');
 const ObjectId            = Schema.Types.ObjectId;
 
 const RequestServiceSchema = new Schema({
@@ -31,11 +32,7 @@ const RequestServiceSchema = new Schema({
     requestedDenegateComments   : { type: String, required: false },
     answerByMail                : { type: Boolean, required: false },
     workOrder_id                : { type: ObjectId, ref: 'WorkOrder'},
-    createdBy                   : { type: String, required: true, default: 'SYSTEM' },
-    createdUtc                  : { type: Date, required: true, default: new Date() },
-    lastModifiedBy              : { type: String, required: false },
-    lastModifiedUtc             : { type: Date, required: false }
-
+    ...TrackingSchema
 });
 
 module.exports = model('RequestService', RequestServiceSchema);

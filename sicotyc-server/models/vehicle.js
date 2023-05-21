@@ -1,5 +1,6 @@
-const { Schema, model }       = require('mongoose');
-const ObjectId = Schema.Types.ObjectId;
+const { Schema, model }   = require('mongoose');
+const { TrackingSchema }  = require('./tracking');
+const ObjectId            = Schema.Types.ObjectId;
 
 const VehicleSchema = new Schema({
     plate           : { type: String, required: true },
@@ -19,10 +20,7 @@ const VehicleSchema = new Schema({
     imagePath       : { type: String, required: false },
     combustible_id  : { type: String, required: false },
     color           : { type: String, required: true },
-    createdBy       : { type: String, required: true, default: 'SYSTEM' },
-    createdUtc      : { type: Date, required: true, default: new Date() },
-    lastModifiedBy  : { type: String, required: false },
-    lastModifiedUtc : { type: Date, required: false }
+    ...TrackingSchema
 });
 
 module.exports = model('Vehicle', VehicleSchema);
