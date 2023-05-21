@@ -1,11 +1,10 @@
 const { Schema, model }   = require('mongoose');
 const { TrackingSchema }  = require('./tracking');
-const ObjectId            = Schema.Types.ObjectId;
 
 const DriverSchema = new Schema({
     firstName       : { type: String, required: true },
     lastName        : { type: String, required: true },
-    licenseNumber   : { type: String, required: true },
+    licenseNumber   : { type: String, unique: true, required: true },
     class_id        : { type: String, required: true },
     category_id     : { type: String, required: true },
     expeditionDate  : { type: Date, required: true },

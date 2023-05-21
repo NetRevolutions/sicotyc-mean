@@ -1,6 +1,6 @@
-const { response } = require('express');
-const LC = require('../models/lookupCode');
-const LCG = require('../models/lookupCodeGroup');
+const { response }  = require('express');
+const LC            = require('../models/lookupCode');
+const LCG           = require('../models/lookupCodeGroup');
 
 const getLookupCodes = async(req, res = response) => {
     

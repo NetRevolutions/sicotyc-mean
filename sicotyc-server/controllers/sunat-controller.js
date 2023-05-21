@@ -1,4 +1,4 @@
-const { response } = require('express');
+const { response }  = require('express');
 const { sunatData } = require('../helpers/sunat');
 
 const getSunatData = async(req, res = response) => {

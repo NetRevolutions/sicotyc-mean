@@ -1,6 +1,5 @@
-const { response } = require('express'); // Con esto hacemos que el response traiga todas su propiedades.
-const Role = require('../models/role');
-
+const { response }  = require('express'); // Con esto hacemos que el response traiga todas su propiedades.
+const Role          = require('../models/role');
 
 const getRoles = async(req, res) => {
 

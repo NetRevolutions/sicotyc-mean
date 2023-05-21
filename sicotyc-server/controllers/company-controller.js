@@ -1,7 +1,7 @@
-const { response } = require('express');
-const Company = require('../models/company');
-const Complement = require('../models/complement');
-const UserCompany = require('../models/userCompany');
+const { response }  = require('express');
+const Company       = require('../models/company');
+const Complement    = require('../models/complement');
+const UserCompany   = require('../models/userCompany');
 
 const getCompanies = async(req, res = response) => {
 
@@ -48,7 +48,7 @@ const getCompany = async(req, res = response) => {
     try {
         // TODO: peding helper to validate RUC   
 
-        const company = await Company.find({ _id })
+        const company = await Company.findById( _id );
 
         if (!company) {
             return res.status(404).json({
@@ -73,7 +73,7 @@ const getCompany = async(req, res = response) => {
 
 const createCompany = async(req, res = response) => {
 
-    const { ruc, nombreComercial, companyEmail, companyPhone, typeOfCompany_id } = req.body;   
+    const { ruc, nombreComercial, ...fields } = req.body;   
 
     try {
 
@@ -82,7 +82,7 @@ const createCompany = async(req, res = response) => {
         if ( existCompany ) {
             return res.status(400).json({
                 ok: false,
-                msg: 'La empresa' + nombreComercial + 'ruc: ' + ruc + ' ya se encuentra registrada';
+                msg: 'La empresa' + nombreComercial + 'ruc: ' + ruc + ' ya se encuentra registrada'
             })
         }
 
@@ -146,7 +146,7 @@ const deleteCompany = async(req, res = response) => {
         if ( !companyDB ) {
             return res.status(404).json({
                 ok: false,
-                msg: 'No existe una empresa con por ese Id'
+                msg: 'No existe una empresa con ese id'
             });
         }
 
@@ -157,7 +157,7 @@ const deleteCompany = async(req, res = response) => {
                 ok: false,
                 msg: 'Company no puede ser eliminado porque esta siendo usado por un complemento.'
             });
-        };
+        }
 
         // Validamos si es usado en User Company
         const userCompanyDB = await UserCompany.findOne({ company_id: companyDB._id })
@@ -166,7 +166,7 @@ const deleteCompany = async(req, res = response) => {
                 ok: false,
                 msg: 'Company no puede ser eliminado porque esta siendo usado por un usuario.'
             });
-        };
+        }
 
         await Company.findByIdAndDelete( _id );
 
