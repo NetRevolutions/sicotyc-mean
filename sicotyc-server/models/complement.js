@@ -19,7 +19,7 @@ const ComplementSchema = new Schema({
     width                   : { type: Decimal128, required: false },
     fabricationYear         : { type: Number, require: true },
     imagePath               : { type: String, required: false },
-    combustible_id          : { type: String, required: false },
+    typeOfCombustible_id    : { type: String, required: false },
     color                   : { type: String, required: true },
     ...TrackingSchema    
 });
