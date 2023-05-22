@@ -2,6 +2,7 @@ const { response }  = require('express');
 const Company       = require('../models/company');
 const Complement    = require('../models/complement');
 const UserCompany   = require('../models/userCompany');
+const Vehicle       = require('../models/vehicle');
 
 const getCompanies = async(req, res = response) => {
 
@@ -45,8 +46,7 @@ const getCompanyByRuc = async(req, res = response) => {
 const getCompany = async(req, res = response) => {
     const _id = req.params.id;
 
-    try {
-        // TODO: peding helper to validate RUC   
+    try {           
 
         const company = await Company.findById( _id );
 
@@ -83,7 +83,7 @@ const createCompany = async(req, res = response) => {
             return res.status(400).json({
                 ok: false,
                 msg: 'La empresa' + nombreComercial + 'ruc: ' + ruc + ' ya se encuentra registrada'
-            })
+            });
         }
 
         const company = new Company( req.body );
@@ -151,7 +151,8 @@ const deleteCompany = async(req, res = response) => {
         }
 
         // Validamos si es usado en complement
-        const complementDB = await Complement.findOne({ company_id: companyDB._id })
+        const complementDB = await Complement.findOne({ company_id: companyDB._id });
+        
         if ( complementDB ) {
             return res.status(404).json({
                 ok: false,
@@ -160,11 +161,20 @@ const deleteCompany = async(req, res = response) => {
         }
 
         // Validamos si es usado en User Company
-        const userCompanyDB = await UserCompany.findOne({ company_id: companyDB._id })
+        const userCompanyDB = await UserCompany.findOne({ company_id: companyDB._id });
         if ( userCompanyDB ) {
             return res.status(404).json({
                 ok: false,
                 msg: 'Company no puede ser eliminado porque esta siendo usado por un usuario.'
+            });
+        }
+
+        // Validamos si es usado en Vehicle
+        const vehicleDB = await Vehicle.findOne({ company_id: companyDB._id });
+        if ( vehicleDB ) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'Company no puede ser elimiando porque esta siendo usado en un vehiculo'
             });
         }
 
@@ -182,7 +192,7 @@ const deleteCompany = async(req, res = response) => {
             msg: 'Error inesperado... revisar logs'
         });
     }
-}
+};
 
 module.exports = {
     getCompanies,

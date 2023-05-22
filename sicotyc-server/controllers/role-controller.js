@@ -12,6 +12,34 @@ const getRoles = async(req, res) => {
     });
 };
 
+const getRole = async(req, res = response) => {
+    const _id = req.params.id;
+
+    try {
+
+        const role = await Role.findById( _id );
+
+        if ( !role ) {
+            return res.status(404).json({
+                ok: false,
+                msg: 'No existe role con ese id'
+            });
+        }
+
+        res.json({
+            ok: true,
+            role
+        });
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Error inesperado... revisar logs'
+        });
+    }
+};
+
 const createRole = async(req, res = response) => {
     
     const { roleName } = req.body;
@@ -114,6 +142,7 @@ const deleteRole = async (req, res = response) => {
 
 module.exports = {
     getRoles,
+    getRole,
     createRole,
     updateRole,
     deleteRole

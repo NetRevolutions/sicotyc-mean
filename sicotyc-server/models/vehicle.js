@@ -9,7 +9,7 @@ const VehicleSchema = new Schema({
     mtcEndData              : { type: Date, required: true },
     brand                   : { type: String, required: false },
     axis                    : { type: Number, required: true, default: 1 },
-    company_id              : { type: ObjectId, required: true },
+    company_id              : { type: ObjectId, required: true, ref: 'Company' },
     netWeight               : { type: Decimal128, required: false },
     utilWeight              : { type: Decimal128, required: false },
     grossWeight             : { type: Decimal128, required: false },
