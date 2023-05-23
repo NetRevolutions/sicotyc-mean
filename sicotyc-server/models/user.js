@@ -11,7 +11,7 @@ const UserSchema = Schema({
     emailConfirmed            : { type: Boolean, default: false },
     password                  : { type: String, required: true },
     imagePath                 : { type: String },
-    role                      : { type: ObjectId, ref: 'Role' },
+    role_id                   : { type: ObjectId, ref: 'Role' },
     refreshToken              : { type: String },
     refreshTokenExpiryTime    : { type: Date },
     ...TrackingSchema

@@ -1,11 +1,13 @@
 const { response }      = require('express');
 const bcrypt            = require('bcryptjs');
 const User              = require('../models/user');
+const Role              = require('../models/role');
+const UserRole          = require('../models/userRole');
 const { generateJWT }   = require('../helpers/jwt');
 
 const getUsers = async(req, res) => {
 
-    const users = await User.find({}, 'firstName lastName userName email role')    
+    const users = await User.find({}, 'firstName lastName userName email role_id')    
 
     res.json({
         ok: true,
@@ -16,7 +18,7 @@ const getUsers = async(req, res) => {
 
 const createUser = async(req, res = response) => {
 
-    const { email, password } = req.body;
+    const { email, password, role_id } = req.body;
 
     try {
         
@@ -32,16 +34,31 @@ const createUser = async(req, res = response) => {
 
         // Encriptar contraseña
         const salt = bcrypt.genSaltSync();
-        user.password = bcrypt.hashSync( password, salt );
-
-        // Asignar Role por defecto (TBD):
-        user.role = '6450800d41785afe9e588ac6'; // Role: 'Transportista'
+        user.password = bcrypt.hashSync( password, salt );         
+        
+        if (!user.role_id) {
+            // Asignar Role por defecto (Coordinador):
+            let role = await Role.findOne({roleName: 'Coordinador'});            
+            user.role_id = role._id;
+        }        
+        
+        //user.role_id = '6450800d41785afe9e588ac6'; // Role: 'Transportista'
 
         // Guardar usuario
-        await user.save();
+        await user.save();        
 
-        // Generar el TOKEN -JWT
-        const token = await generateJWT( user.id );
+        // Guardamos en la table UserRole
+        const userRole = new UserRole({
+            user_id: user.id,
+            role_id: user.role_id
+        });
+        // userRole.user_id = user.id;
+        // userRole.role_id = user.role_id;
+        await userRole.save();
+
+        const roles = [role_id]
+        // Generar el TOKEN - JWT
+        const token = await generateJWT( user.id, JSON.stringify(roles));
 
         res.json({
             ok: true,

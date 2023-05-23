@@ -21,7 +21,7 @@ router.post('/',
     [
         check('firstName', 'El nombre es obligatorio').not().isEmpty(),
         check('lastName', 'El apellido es obligatorio').not().isEmpty(),
-        check('email', 'El email es obligatorio').isEmail(),
+        check('email', 'El email es obligatorio').isEmail(),        
         validateFields
     ], 
     createUser

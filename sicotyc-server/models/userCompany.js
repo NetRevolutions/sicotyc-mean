@@ -9,4 +9,9 @@ const UserCompanySchema = Schema({
     ...TrackingSchema
 });
 
+UserCompanySchema.method('toJSON', function() {
+    const { __v, ...object } = this.toObject(); // Con esto evitamos devolver la version (__v)
+    return object;
+});
+
 module.exports = model('UserCompany', UserCompanySchema);

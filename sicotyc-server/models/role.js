@@ -10,8 +10,7 @@ const RoleSchema = Schema({
 });
 
 RoleSchema.method('toJSON', function() {
-    const {__v, _id, ...object }  = this.toObject(); // Con esto evitamos devolver __v y _id, el resto se devuelve
-    object.uid                    = _id; // Con esto le seteamos a una variable definida por el usuario el valor de _id
+    const {__v, ...object }  = this.toObject(); // Con esto evitamos devolver __v, el resto se devuelve
     return object;
 }); 
 

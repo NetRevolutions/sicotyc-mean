@@ -1,6 +1,7 @@
 const { Schema, model }   = require('mongoose');
 const { TrackingSchema }  = require('./tracking');
 const ObjectId            = Schema.Types.ObjectId;
+const Decimal128          = Schema.Types.Decimal128;
 
 const VehicleSchema = new Schema({
     plate                   : { type: String, required: true },
@@ -19,8 +20,13 @@ const VehicleSchema = new Schema({
     fabricationYear         : { type: Number, require: true },
     imagePath               : { type: String, required: false },
     typeOfCombustible_id    : { type: String, required: false },
-    color                   : { type: String, required: true },
+    color_id                : { type: String, required: true },
     ...TrackingSchema
+});
+
+VehicleSchema.method('toJSON', function() {
+    const { __v, ...object } = this.toObject(); // Con esto evitamos devolver la version (__v)
+    return object;
 });
 
 module.exports = model('Vehicle', VehicleSchema);

@@ -8,4 +8,9 @@ const WorkOrderComplementSchema = new Schema({
     ...TrackingSchema    
 });
 
+WorkOrderComplementSchema.method('toJSON', function() {
+    const { __v, ...object } = this.toObject(); // Con esto evitamos devolver la version (__v)
+    return object;
+});
+
 module.exports = model('WorkOrderComplement', WorkOrderComplementSchema);

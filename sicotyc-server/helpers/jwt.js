@@ -5,11 +5,13 @@
 
 const jwt = require('jsonwebtoken');
 
-const generateJWT = ( uid ) => {
+const generateJWT = ( uid, roles ) => {
 
     return new Promise( ( resolve, reject ) => {
         const payload = {
-            uid
+            uid,
+            roles
+
             // TODO: Pendiente de agregar mas informacion que no sea sensible
         };
     

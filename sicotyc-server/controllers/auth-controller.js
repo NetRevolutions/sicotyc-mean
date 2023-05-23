@@ -1,6 +1,7 @@
 const { response }      = require('express');
 const bcrypt            = require('bcryptjs');
 const User              = require('../models/user');
+const UserRole          = require('../models/userRole');
 const { generateJWT }   = require('../helpers/jwt');
 
 const login = async(req, res = response) => {
@@ -28,8 +29,19 @@ const login = async(req, res = response) => {
             });
         };
 
+        // Obtener Roles por Usuario (buscar en el documento UserRole)
+        const userRoleDB = UserRole.find({ user_id: userDB.id });
+        const roles = [];
+        if (userRolesDB && userRolesDB.length > 0) {
+            userRoleDB.forEach(element => {
+                roles.push(element);
+            });
+        }
+
+        // Obtener opciones por Usuario (a futuro)
+
         // Generar el TOKEN -JWT
-        const token = await generateJWT( userDB.id );
+        const token = await generateJWT( userDB.id, JSON.stringify(roles) );
 
         res.json({
             ok: true,
