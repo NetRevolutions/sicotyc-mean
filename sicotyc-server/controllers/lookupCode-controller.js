@@ -4,11 +4,20 @@ const LCG           = require('../models/lookupCodeGroup');
 
 const getLookupCodes = async(req, res = response) => {
     
-    const lc = await LC.find({}).sort({ lookupCodeGroup_id: 1, lookupCodeOrder: 1});
+    const from = Number(req.query.from) || 0;
+    
+    const [lc, total] = await Promise.all([
+        LC.find({})    
+        .sort({ lookupCodeGroup_id: 1, lookupCodeOrder: 1})
+        .skip( from )
+        .limit( 5 ),
+        LC.countDocuments()
+    ]);
 
     res.json({
         ok: true,
-        lookupCodes: lc
+        lookupCodes: lc,
+        total
     });
 };
 
@@ -24,10 +33,10 @@ const getLookupCodesByLCG = async(req, res = response) => {
 };
 
 const createLookupCodes = async(req, res = response) => {    
-    const { lookupCodeGroup_id, lookupCodeValue, lookupCodeName, ...params } = req.body;
+    const { lookupCodeGroup_id, lookupCodeValue, lookupCodeName } = req.body;
 
     try {
-
+        
         const lcgDB = await LCG.findById( lookupCodeGroup_id );
 
         if ( !lcgDB ) {
@@ -60,6 +69,7 @@ const createLookupCodes = async(req, res = response) => {
 
         const lc = new LC(req.body);
         lc.lookupCodeOrder = lastLookupCodeOrder;
+        lc.createdBy = req.uid;
         await lc.save();
 
         res.json({
@@ -93,6 +103,8 @@ const updateLookupCodes = async(req, res = response) => {
 
         // Actualizacion
         const fields = req.body;
+        fields.lastModifiedBy = req.uid;
+        fields.lastModifiedUtc = new Date();
 
         const lcUpdated = await LC.findByIdAndUpdate( id, fields, { new : true} );
 

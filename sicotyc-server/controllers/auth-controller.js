@@ -30,15 +30,15 @@ const login = async(req, res = response) => {
         };
 
         // Obtener Roles por Usuario (buscar en el documento UserRole)
-        const userRoleDB = UserRole.find({ user_id: userDB.id });
+        const userRolesDB = await UserRole.find({ user_id : userDB.id });
         const roles = [];
         if (userRolesDB && userRolesDB.length > 0) {
-            userRoleDB.forEach(element => {
-                roles.push(element);
+            userRolesDB.forEach(element => {
+                roles.push(element.role_id);
             });
         }
-
-        // Obtener opciones por Usuario (a futuro)
+                
+        // Obtener opciones por Usuario (a futuro)        
 
         // Generar el TOKEN -JWT
         const token = await generateJWT( userDB.id, JSON.stringify(roles) );

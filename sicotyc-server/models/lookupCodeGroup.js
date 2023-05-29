@@ -1,9 +1,11 @@
 const { Schema, model }   = require('mongoose');
-const { TrackingSchema }  = require('./tracking');
 
 const LoockupCodeGroupSchema = new Schema({    
-    lookupCodeGroupName : { type: String, required: true },
-    ...TrackingSchema
+    lookupCodeGroupName   : { type: String, required: true },
+    createdBy             : { type: String, required: true, default: 'SYSTEM' },
+    createdUtc            : { type: Date, required: true, default: new Date() },
+    lastModifiedBy        : { type: String, required: false },
+    lastModifiedUtc       : { type: Date, required: false }
 });
 
 LoockupCodeGroupSchema.method('toJSON', function() {

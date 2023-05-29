@@ -14,8 +14,11 @@ const validateJWT = (req, res = response, next) => {
 
     try {
 
-        const { uid } = jwt.verify( token, process.env.JWT_SECRET );
+        // Aca ponemos todos los objectos de queremos recuperar del token
+        const { uid, roles } = jwt.verify( token, process.env.JWT_SECRET );
+
         req.uid = uid;
+        req.roles = roles;
         
         next();
         

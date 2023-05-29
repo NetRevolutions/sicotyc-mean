@@ -1,11 +1,13 @@
 const { Schema, model }   = require('mongoose');
-const { TrackingSchema }  = require('./tracking');
 const ObjectId            = Schema.Types.ObjectId;
 
 const WorkOrderVehiculeSchema = new Schema({
-    workOrder_id    : { type: ObjectId, required: true, ref: 'WorkOrder' },
-    vehicle_id      : { type: ObjectId, required: true, ref: 'Vehicle' },
-    ...TrackingSchema
+    workOrder       : { type: ObjectId, ref: 'WorkOrder' },
+    vehicle         : { type: ObjectId, ref: 'Vehicle' },
+    createdBy       : { type: String, required: true, default: 'SYSTEM' },
+    createdUtc      : { type: Date, required: true, default: new Date() },
+    lastModifiedBy  : { type: String, required: false },
+    lastModifiedUtc : { type: Date, required: false }
 });
 
 WorkOrderVehiculeSchema.method('toJSON', function() {

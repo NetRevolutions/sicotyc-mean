@@ -1,6 +1,4 @@
 const { Schema, model }   = require('mongoose');
-const { TrackingSchema }    = require('./tracking');
-const ObjectId            = Schema.Types.ObjectId;
 
 const CompanySchema = new Schema({    
     ruc                       : { type: String, unique: true, maxLength: 11, required: true },
@@ -11,7 +9,10 @@ const CompanySchema = new Schema({
     companyEmail              : { type: String, required: true },
     companyPhone              : { type: String, required: true },
     typeOfCompany_id          : { type: String, required: true },
-    ...TrackingSchema  
+    createdBy                 : { type: String, required: true, default: 'SYSTEM' },
+    createdUtc                : { type: Date, required: true, default: new Date() },
+    lastModifiedBy            : { type: String, required: false },
+    lastModifiedUtc           : { type: Date, required: false }
 });
 
 CompanySchema.method('toJSON', function() {

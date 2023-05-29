@@ -34,8 +34,9 @@ router.get( '/:lcgId',
 router.post('',
     [
         validateJWT,
+        check('lookupCodeGroup', 'El LookupCodeGroup debe de ser valido').isMongoId(),
         check('lookupCodeValue', 'El valor del Lookup Code es requerido').not().isEmpty(),
-        check('lookupCodeName', 'El nombre del Lookup Code es requerido').not().isEmpty(),
+        check('lookupCodeName', 'El nombre del Lookup Code es requerido').not().isEmpty(),        
         validateFields
     ], 
     createLookupCodes
@@ -44,8 +45,9 @@ router.post('',
 router.put('/:id',
     [
         validateJWT,
+        check('lookupCodeGroup', 'El LookupCodeGroup debe de ser valido').isMongoId(),
         check('lookupCodeValue', 'El valor del Lookup Code es requerido').not().isEmpty(),
-        check('lookupCodeName', 'El nombre del Lookup Code es requerido').not().isEmpty(),
+        check('lookupCodeName', 'El nombre del Lookup Code es requerido').not().isEmpty(),        
         validateFields
     ], 
     updateLookupCodes

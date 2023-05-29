@@ -7,7 +7,7 @@ const { generateJWT }   = require('../helpers/jwt');
 
 const getUsers = async(req, res) => {
 
-    const users = await User.find({}, 'firstName lastName userName email role_id')    
+    const users = await User.find({}, 'firstName lastName userName email imagePath')    
 
     res.json({
         ok: true,
@@ -18,7 +18,7 @@ const getUsers = async(req, res) => {
 
 const createUser = async(req, res = response) => {
 
-    const { email, password, role_id } = req.body;
+    const { email, password } = req.body;    
 
     try {
         
@@ -34,36 +34,35 @@ const createUser = async(req, res = response) => {
 
         // Encriptar contraseña
         const salt = bcrypt.genSaltSync();
-        user.password = bcrypt.hashSync( password, salt );         
-        
-        if (!user.role_id) {
-            // Asignar Role por defecto (Coordinador):
-            let role = await Role.findOne({roleName: 'Coordinador'});            
-            user.role_id = role._id;
-        }        
-        
-        //user.role_id = '6450800d41785afe9e588ac6'; // Role: 'Transportista'
+        user.password = bcrypt.hashSync( password, salt );        
 
         // Guardar usuario
         await user.save();        
 
+        // Asignar Role por defecto (Coordinador):
+        let role = await Role.findOne({roleName: 'Coordinador'});
+        
+        //user.role_id = '6450800d41785afe9e588ac6'; // Role: 'Transportista'
+
         // Guardamos en la table UserRole
         const userRole = new UserRole({
             user_id: user.id,
-            role_id: user.role_id
+            role_id: role._id
         });
-        // userRole.user_id = user.id;
-        // userRole.role_id = user.role_id;
+        
         await userRole.save();
 
-        const roles = [role_id]
+        // console.log('uid-token', req.uid);
+        // console.log('roles-token', req.roles);
+
         // Generar el TOKEN - JWT
-        const token = await generateJWT( user.id, JSON.stringify(roles));
+        // const token = await generateJWT( req.uid, req.roles); 
+        // Evaluar si enviamos el uid y roles del usuario creado o mantenemos el actual
 
         res.json({
             ok: true,
             user,
-            token
+            // token // No es necesario enviarlo
         });
 
     } catch (error) {

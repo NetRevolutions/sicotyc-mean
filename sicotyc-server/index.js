@@ -31,6 +31,8 @@ app.use( '/api/complements', require('./routes/complement-routes') );
 app.use( '/api/drivers', require('./routes/driver-routes') );
 app.use( '/api/vehicles', require('./routes/vehicle-routes') );
 app.use( '/api/points', require('./routes/point-routes') );
+app.use( '/api/search', require('./routes/search-routes') );
+app.use( '/api/upload', require('./routes/upload-routes') );
 
 app.listen(process.env.PORT, () => {
     console.log( 'Servidor corriendo en puerto ' + process.env.PORT );

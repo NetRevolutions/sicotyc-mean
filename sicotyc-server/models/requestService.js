@@ -1,5 +1,4 @@
 const { Schema, model }   = require('mongoose');
-const { TrackingSchema }  = require('./tracking');
 const ObjectId            = Schema.Types.ObjectId;
 
 const RequestServiceSchema = new Schema({
@@ -16,11 +15,11 @@ const RequestServiceSchema = new Schema({
     dateOfService               : { type: Date, required: true },
     sizeContainer_id            : { type: String, required: false },
     canUseContainerSize40       : { type: Boolean, default: false },
-    pointOne_id                 : { type: ObjectId, required: true, ref: 'Point' },
+    pointOne                    : { type: ObjectId, ref: 'Point' },
     referencePointOne           : { type: String },
-    pointTwo_id                 : { type: ObjectId, required: true, ref: 'Point' },
+    pointTwo                    : { type: ObjectId, ref: 'Point' },
     referencePointTwo           : { type: String },
-    pointThree_id               : { type: ObjectId, required: false, ref: 'Point' },
+    pointThree                  : { type: ObjectId, ref: 'Point' },
     referencePointThree         : { type: String },
     custodyRequired             : { type: Boolean, default: false },
     crewRequired                : { type: Boolean, default: false },
@@ -31,8 +30,11 @@ const RequestServiceSchema = new Schema({
     requestedDenegate_id        : { type: String, required: false },
     requestedDenegateComments   : { type: String, required: false },
     answerByMail                : { type: Boolean, required: false },
-    workOrder_id                : { type: ObjectId, ref: 'WorkOrder'},
-    ...TrackingSchema
+    workOrder                   : { type: ObjectId, ref: 'WorkOrder'},
+    createdBy                   : { type: String, required: true, default: 'SYSTEM' },
+    createdUtc                  : { type: Date, required: true, default: new Date() },
+    lastModifiedBy              : { type: String, required: false },
+    lastModifiedUtc             : { type: Date, required: false }
 });
 
 RequestServiceSchema.method('toJSON', function() {

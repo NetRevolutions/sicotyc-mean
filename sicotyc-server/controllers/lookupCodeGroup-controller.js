@@ -28,6 +28,8 @@ const createLookupCodeGroups = async(req, res = response) => {
         }
 
         const lcg = new LCG( req.body );
+        lcg.createdBy = req.uid;
+
         await lcg.save();
 
         res.json({
@@ -61,6 +63,8 @@ const updateLookupCodeGroups = async(req, res = response) => {
 
         // Actualizacion
         const fields = req.body;
+        fields.lastModifiedBy = req.uid;
+        fields.lastModifiedUtc = new Date();
 
         const lcgUpdated = await LCG.findByIdAndUpdate( id, fields, { new: true} );
 

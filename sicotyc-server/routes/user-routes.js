@@ -19,6 +19,7 @@ router.get( '/',
 
 router.post('/',
     [
+        validateJWT,
         check('firstName', 'El nombre es obligatorio').not().isEmpty(),
         check('lastName', 'El apellido es obligatorio').not().isEmpty(),
         check('email', 'El email es obligatorio').isEmail(),        
