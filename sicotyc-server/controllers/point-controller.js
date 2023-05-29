@@ -81,6 +81,10 @@ const createPoint = async(req, res = response) => {
             });
         }
 
+        // Creacion
+        fields.createdBy = req.uid;
+        fields.createdUtc = new Date();
+
         const point = new Point( fields );
         await point.save();
 
@@ -114,6 +118,8 @@ const updatePoint = async(req, res = response) => {
 
         // Actualizacion
         const fields = req.body;
+        fields.lastModifiedBy = req.uid;
+        fields.lastModifiedUtc = new Date();
 
         const pointUpdated = await Point.findByIdAndUpdate( _id, fields, { new: true });
 

@@ -114,6 +114,10 @@ const createVehicle = async(req, res = response) => {
             });
         }
 
+        // Creacion
+        fields.createdBy = req.uid;
+        fields.createdUtc = new Date();
+
         const vehicle = new Vehicle(fields);
         await vehicle.save();
 
@@ -147,6 +151,8 @@ const updateVehicle = async(req, res = response) => {
 
         // Actualizacion
         const fields = req.body;
+        fields.lastModifiedBy = req.uid;
+        fields.lastModifiedUtc = new Date();
 
         const vehicleUpdated = await Vehicle.findByIdAndUpdate( _id, fields, { new: true });
 

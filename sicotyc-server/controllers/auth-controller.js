@@ -57,7 +57,30 @@ const login = async(req, res = response) => {
     }
 };
 
+const renewToken = async ( req, res = response ) => {
+
+    const uid = req.uid;
+
+    // Obtener Roles por Usuario (buscar en el documento UserRole)
+    const userRolesDB = await UserRole.find({ user_id : uid });
+    const roles = [];
+    if (userRolesDB && userRolesDB.length > 0) {
+        userRolesDB.forEach(element => {
+            roles.push(element.role_id);
+        });
+    }
+    
+    // Generar el TOKEN -JWT
+    const token = await generateJWT( uid, JSON.stringify(roles) );
+    
+    res.json({
+        ok: true,
+        token
+    });
+};
+
 
 module.exports = {
-    login
+    login,
+    renewToken
 };

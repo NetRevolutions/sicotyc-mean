@@ -33,7 +33,7 @@ const getLookupCodesByLCG = async(req, res = response) => {
 };
 
 const createLookupCodes = async(req, res = response) => {    
-    const { lookupCodeGroup_id, lookupCodeValue, lookupCodeName } = req.body;
+    const { lookupCodeGroup_id, lookupCodeValue, lookupCodeName, ...fields } = req.body;
 
     try {
         
@@ -65,11 +65,15 @@ const createLookupCodes = async(req, res = response) => {
             // Obtenemos el ultimo lookupCodeOrder y le sumamos 1          
             lastLookupCodeOrder = lcOrder[0].lookupCodeOrder;
             lastLookupCodeOrder++;
-        }                    
+        }   
+        
+        // Creacion
+        fields.createdBy = req.uid;
+        fields.createdUtc = new Date();
 
-        const lc = new LC(req.body);
-        lc.lookupCodeOrder = lastLookupCodeOrder;
-        lc.createdBy = req.uid;
+        fields.lookupCodeOrder = lastLookupCodeOrder;
+
+        const lc = new LC(fields);       
         await lc.save();
 
         res.json({

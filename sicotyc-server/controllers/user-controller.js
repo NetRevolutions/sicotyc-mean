@@ -18,7 +18,7 @@ const getUsers = async(req, res) => {
 
 const createUser = async(req, res = response) => {
 
-    const { email, password } = req.body;    
+    const { email, password, ...fields } = req.body;    
 
     try {
         
@@ -30,13 +30,15 @@ const createUser = async(req, res = response) => {
             });
         }
 
-        const user = new User( req.body );
+        // Creacion
+        fields.createdBy = req.uid;
+        fields.createdUtc = new Date();
 
         // Encriptar contraseña
         const salt = bcrypt.genSaltSync();
-        user.password = bcrypt.hashSync( password, salt );        
+        fields.password = bcrypt.hashSync( password, salt );
 
-        // Guardar usuario
+        const user = new User( fields );               
         await user.save();        
 
         // Asignar Role por defecto (Coordinador):
@@ -47,13 +49,12 @@ const createUser = async(req, res = response) => {
         // Guardamos en la table UserRole
         const userRole = new UserRole({
             user_id: user.id,
-            role_id: role._id
+            role_id: role._id,
+            createdBy: req.uid,
+            createdUtc: new Date()
         });
         
-        await userRole.save();
-
-        // console.log('uid-token', req.uid);
-        // console.log('roles-token', req.roles);
+        await userRole.save();        
 
         // Generar el TOKEN - JWT
         // const token = await generateJWT( req.uid, req.roles); 
@@ -104,7 +105,11 @@ const updateUser = async(req, res = response) => {
             }
         }
 
-        fields.email = email;
+        // Actualizacion        
+        fields.lastModifiedBy = req.uid;
+        fields.lastModifiedUtc = new Date();
+
+        //fields.email = email;
         const userUpdated = await User.findByIdAndUpdate( uid, fields, { new: true });
 
         res.json({

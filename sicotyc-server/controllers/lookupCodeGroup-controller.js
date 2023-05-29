@@ -14,7 +14,7 @@ const getLookupCodeGroups = async(req, res = response) => {
 
 const createLookupCodeGroups = async(req, res = response) => {
 
-    const { lookupCodeGroupName } = req.body;
+    const { lookupCodeGroupName, ...fields } = req.body;
 
     try {
 
@@ -27,9 +27,11 @@ const createLookupCodeGroups = async(req, res = response) => {
             });
         }
 
-        const lcg = new LCG( req.body );
-        lcg.createdBy = req.uid;
+        // Creacion
+        fields.createdBy = req.uid;
+        fields.createdUtc = new Date();
 
+        const lcg = new LCG( fields );
         await lcg.save();
 
         res.json({

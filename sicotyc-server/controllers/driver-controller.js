@@ -69,7 +69,7 @@ const getDriver = async(req, res = response) => {
 };
 
 const createDriver = async(req, res = response) => {
-    const { licenseNumber } = req.body;
+    const { licenseNumber, ...fields } = req.body;
 
     try {
 
@@ -81,7 +81,11 @@ const createDriver = async(req, res = response) => {
             });
         }
 
-        const driver = new Driver( req.body );
+        // Creacion
+        fields.createdBy = req.uid;
+        fields.createdUtc = new Date();
+
+        const driver = new Driver( fields );
         await driver.save();
 
         res.json({
@@ -114,7 +118,10 @@ const updateDriver = async(req, res = response) => {
 
         // Actualizacion
         const fields = req.body;
-
+        fields.lastModifiedBy = req.uid;
+        fields.lastModifiedUtc = new Date();
+        
+        
         const driverUpdated = await Driver.findByIdAndUpdate( _id, fields, { new: true });
 
         res.json({

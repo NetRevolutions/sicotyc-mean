@@ -114,6 +114,10 @@ const createComplement = async(req, res = response) => {
             });
         }
 
+        // Creacion
+        fields.createdBy = req.uid;
+        fields.createdUtc = new Date();
+
         const complement = new Complement(fields);
         await complement.save();
 
@@ -148,6 +152,8 @@ const updateComplement = async(req, res = response) => {
 
         // Actualizacion
         const fields = req.body;
+        fields.lastModifiedBy = req.uid;
+        fields.lastModifiedUtc = new Date();
 
         const complementUpdated = await Complement.findByIdAndUpdate( _id, fields, { new: true });
 

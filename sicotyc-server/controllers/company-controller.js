@@ -86,7 +86,11 @@ const createCompany = async(req, res = response) => {
             });
         }
 
-        const company = new Company( req.body );
+        // Creacion
+        fields.createdBy = req.uid;
+        fields.createdUtc = new Date();
+
+        const company = new Company( fields );
         await company.save();
 
         res.json({
@@ -119,6 +123,8 @@ const updateCompany = async(req, res = response) => {
 
         // Actualizacion
         const fields = req.body;
+        fields.lastModifiedBy = req.uid;
+        fields.lastModifiedUtc = new Date();
 
         const companyUpdated = await Company.findByIdAndUpdate( _id, fields, { new: true });
 

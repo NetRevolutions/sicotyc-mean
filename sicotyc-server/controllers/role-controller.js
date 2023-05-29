@@ -42,7 +42,7 @@ const getRole = async(req, res = response) => {
 
 const createRole = async(req, res = response) => {
     
-    const { roleName } = req.body;
+    const { roleName, ...fields } = req.body;
 
     try {
         const existRole = await Role.findOne({ roleName });
@@ -54,7 +54,11 @@ const createRole = async(req, res = response) => {
             });
         }
 
-        const role = new Role( req.body );
+        // Creacion
+        fields.createdBy = req.uid;
+        fields.createdUtc = new Date();
+
+        const role = new Role( fields );
         await role.save();
 
         res.json({
@@ -89,6 +93,9 @@ const updateRole = async ( req, res = response ) => {
 
         // Actualizacion
         const fields = req.body;
+        fields.lastModifiedBy = req.uid;
+        fields.lastModifiedUtc = new Date();
+        
         // delete fields.password; // Con esto borramos ciertos campos del objeto por unos momentos.
 
 
