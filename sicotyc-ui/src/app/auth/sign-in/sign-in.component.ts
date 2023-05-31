@@ -1,13 +1,15 @@
-import { Component, ViewEncapsulation } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { mergeScan } from 'rxjs';
 
 
 @Component({
   selector: 'auth-sign-in',
   templateUrl: './sign-in.component.html',
   encapsulation: ViewEncapsulation.None,
-  animations: []
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  exportAs: 'auth-sign-in'
 })
-export class AuthSignInComponent {
+export class AuthSignInComponent implements OnInit{
 
 
   /**
@@ -15,5 +17,10 @@ export class AuthSignInComponent {
    */
   constructor()
   {
+  }
+
+
+  ngOnInit(): void {
+    console.log('sign-in');
   }
 }

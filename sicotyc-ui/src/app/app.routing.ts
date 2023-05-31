@@ -4,19 +4,19 @@ import { AuthRoutingModule } from './auth/auth.routing';
 import { Error500Component } from './error/error-500/error-500.component';
 import { PagesRoutingModule } from './pages/pages.routing';
 
-export const routes: Routes = [
+const routes: Routes = [
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
   {path: '**', component: Error500Component},
 ];
 
-const routerConfig: ExtraOptions = {
-  preloadingStrategy        : PreloadAllModules,
-  scrollPositionRestoration : 'enabled'
-};
+// const routerConfig: ExtraOptions = {
+//   preloadingStrategy        : PreloadAllModules,
+//   scrollPositionRestoration : 'enabled'
+// };
 
 @NgModule({
   imports: [
-    RouterModule.forRoot(routes, routerConfig),
+    RouterModule.forRoot(routes), //, routerConfig
     PagesRoutingModule,
     AuthRoutingModule
   ],

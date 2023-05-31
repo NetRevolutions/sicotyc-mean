@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { RouterModule } from '@angular/router';
 
 // Components
 import { BreadcrumbsComponent } from './common/breadcrumbs/breadcrumbs.component';
@@ -11,8 +12,6 @@ import { ControlSidebarComponent } from './layout/control-sidebar/control-sideba
 import { MainFooterComponent } from './layout/main-footer/main-footer.component';
 import { MainSidebarComponent } from './layout/main-sidebar/main-sidebar.component';
 import { NavbarComponent } from './layout/navbar/navbar.component';
-import { RouterModule } from '@angular/router';
-
 
 @NgModule({
   declarations: [

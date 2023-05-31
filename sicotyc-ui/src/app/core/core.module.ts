@@ -1,9 +1,9 @@
 import { NgModule, Optional, SkipSelf } from '@angular/core';
-import { AuthModule } from './auth/auth.module';
+import { AuthModuleGeneral } from './auth/auth.module';
 
 @NgModule({  
   imports: [
-    AuthModule
+    AuthModuleGeneral
   ]
 })
 export class CoreModule 

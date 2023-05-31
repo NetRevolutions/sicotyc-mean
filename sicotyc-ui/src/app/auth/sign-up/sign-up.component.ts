@@ -4,7 +4,7 @@ import { Component, ViewEncapsulation } from '@angular/core';
   selector: 'auth-sign-up',
   templateUrl: './sign-up.component.html',
   encapsulation: ViewEncapsulation.None,
-  animations: []
+  styleUrls: ['./sign-up.component.css']
 })
 export class AuthSignUpComponent {
 

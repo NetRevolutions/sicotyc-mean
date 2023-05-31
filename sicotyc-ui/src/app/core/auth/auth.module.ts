@@ -16,6 +16,4 @@ import { AuthInterceptor } from './auth.interceptor';
         }
     ]
 })
-export class AuthModule
-{
-}
+export class AuthModuleGeneral { }

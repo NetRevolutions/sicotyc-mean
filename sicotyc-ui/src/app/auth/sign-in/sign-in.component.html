@@ -10,7 +10,7 @@
       
             <form><!-- action="../../index3.html" method="post" -->                
               <div class="input-group mb-3">
-                <input type="email" class="form-control" placeholder="Correo">
+                <input type="email" id="correo" name="correo" class="form-control" placeholder="Correo">
                 <div class="input-group-append">
                   <div class="input-group-text">
                     <span class="fas fa-envelope"></span>
@@ -18,7 +18,7 @@
                 </div>
               </div>
               <div class="input-group mb-3">
-                <input type="password" class="form-control" placeholder="Contraseña">
+                <input type="password" id="contrasena" name="contrasena" class="form-control" placeholder="Contraseña">
                 <div class="input-group-append">
                   <div class="input-group-text">
                     <span class="fas fa-lock"></span>
@@ -28,7 +28,7 @@
               <div class="row">
                 <div class="col-6">
                   <div class="icheck-primary">
-                    <input type="checkbox" id="remember">
+                    <input type="checkbox" id="remember" name="remember">
                     <label for="remember">
                       Recuerdame
                     </label>
@@ -36,7 +36,7 @@
                 </div>
                 <!-- /.col -->
                 <div class="col-6">
-                  <button type="submit" class="btn btn-primary btn-block">Iniciar Sesion</button>
+                  <button type="submit" class="btn btn-primary btn-block" id="signin" name="sigin">Iniciar Sesion</button>
                 </div>
                 <!-- /.col -->
               </div>
@@ -53,10 +53,10 @@
             <!-- /.social-auth-links -->
       
             <p class="mb-1">
-              <a href="forgot-password" >Olvide mi contraseña</a>
+              <a routerLink="/forgot-password" >Olvide mi contraseña</a>
             </p>
             <p class="mb-0">
-              <a href="sign-up" class="text-center">Nuevo usuario?.. registrate</a>
+              <a routerLink="/sign-up" class="text-center">Nuevo usuario?.. registrate</a>
             </p>
           </div>
           <!-- /.card-body -->
