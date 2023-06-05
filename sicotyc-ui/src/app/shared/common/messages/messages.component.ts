@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewContainerRef, ViewEncapsulation } from '@angular/core';
-import { MessagesService } from './messages.service';
+import { MessagesService } from '../../../services/messages.service';
 
 @Component({
   selector: 'messages',

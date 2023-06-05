@@ -101,16 +101,16 @@ const getVehicleByMtc = async(req, res = response) => {
 
 const createVehicle = async(req, res = response) => {
 
-    const { plate, mtcNumber, ...fields } = req.body;
+    const { ...fields } = req.body;
 
     try {
 
-        const existVehicle = await Vehicle.findOne({ plate });
+        const existVehicle = await Vehicle.findOne({ plate: fields.plate });
 
         if ( existVehicle ) {
             return res.status(404).json({
                 ok: false,
-                msg: 'El vehiculo con placa ' + plate + ' y MTC ' + mtcNumber + ' ya se encuentra registrada.'
+                msg: 'El vehiculo con placa ' + fields.plate + ' y MTC ' + fields.mtcNumber + ' ya se encuentra registrada.'
             });
         }
 

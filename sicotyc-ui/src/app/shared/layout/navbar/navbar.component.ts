@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewContainerRef, ViewEncapsulation } from '@angular/core';
-import { NavbarService } from './navbar.service';
+import { NavbarService } from '../../../services/navbar.service';
 
 @Component({
   selector: 'app-navbar',

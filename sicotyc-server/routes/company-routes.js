@@ -20,28 +20,28 @@ const router = Router();
 
 router.get( '/',
     [
-        validateJWT
+        //validateJWT
     ],
     getCompanies
 );
 
 router.get( '/ruc/:ruc',
     [
-        validateJWT
+        //validateJWT
     ],
     getCompanyByRuc
 );
 
 router.get( '/:id',
     [
-        validateJWT
+        //validateJWT
     ],
     getCompany
 );
 
 router.post( '',
     [
-        validateJWT,
+        //validateJWT,
         check('ruc', 'El nro de ruc es requerido').not().isEmpty(),
         check('nombreComercial', 'El nombre de la empresa es requerido').not().isEmpty(),
         check('companyEmail', 'El correo de la empresa es requerido').isEmail(),

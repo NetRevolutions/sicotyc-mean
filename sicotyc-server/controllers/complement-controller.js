@@ -101,16 +101,16 @@ const getComplementByMtc = async(req, res = response) => {
 
 const createComplement = async(req, res = response) => {
 
-    const { plate, mtcNumber, ...fields } = req.body;
+    const { ...fields } = req.body;
 
     try {
 
-        const existComplement = await Complement.findOne({ plate });
+        const existComplement = await Complement.findOne({ plate: fields.plate });
 
         if ( existComplement ) {
             return res.status(404).json({
                 ok: false,
-                msg: 'El complemento con la placa ' + plate + ' y MTC ' + mtcNumber + ' ya se encuentra registrado.'
+                msg: 'El complemento con la placa ' + fields.plate + ' y MTC ' + fields.mtcNumber + ' ya se encuentra registrado.'
             });
         }
 

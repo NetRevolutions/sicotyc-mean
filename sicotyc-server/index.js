@@ -33,6 +33,9 @@ app.use( '/api/vehicles', require('./routes/vehicle-routes') );
 app.use( '/api/points', require('./routes/point-routes') );
 app.use( '/api/search', require('./routes/search-routes') );
 app.use( '/api/upload', require('./routes/upload-routes') );
+app.use( '/api/userCompany', require('./routes/userCompany-routes') );
+app.use( '/api/userRoles', require('./routes/userRole-routes') );
+app.use( '/api/userDetail', require('./routes/userDetail-routes') );
 
 app.listen(process.env.PORT, () => {
     console.log( 'Servidor corriendo en puerto ' + process.env.PORT );

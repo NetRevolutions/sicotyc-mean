@@ -19,14 +19,14 @@ const router = Router();
 
 router.get( '/',
     [
-        validateJWT
+        //validateJWT
     ],
     getLookupCodes
 );
 
 router.get( '/:lcgId', 
     [
-        validateJWT
+        //validateJWT
     ],
     getLookupCodesByLCG
 );

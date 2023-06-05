@@ -5,12 +5,16 @@
             <a class="h1"><b>SICOTYC</b></a>
           </div>
           <div class="card-body">                  
-            <form action="../../index.html" method="post">
+            <form 
+              id="registerForm" 
+              autocomplete="off"
+              [formGroup]="registerForm"
+              (ngSubmit)="createUser()">
                 <p class="login-box-msg h5">Datos del Usuario</p>
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Nombres">
+                            <input type="text" class="form-control" placeholder="Nombres" formControlName="firstName">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                 <span class="fas fa-user"></span>
@@ -20,7 +24,7 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Apellidos">
+                            <input type="text" class="form-control" placeholder="Apellidos" formControlName="lastName">
                             <div class="input-group-append">
                               <div class="input-group-text">
                                 <span class="fas fa-user"></span>
@@ -32,7 +36,7 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Nombre de Usuario">
+                            <input type="text" class="form-control" placeholder="Nombre de Usuario" formControlName="userName">
                             <div class="input-group-append">
                               <div class="input-group-text">
                                 <span class="fas fa-user"></span>
@@ -42,7 +46,7 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Celular">
+                            <input type="text" class="form-control" placeholder="Celular" formControlName="mobile">
                             <div class="input-group-append">
                               <div class="input-group-text">
                                 <span class="fas fa-mobile"></span>
@@ -54,7 +58,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="input-group mb-3">
-                            <input type="email" class="form-control" placeholder="Correo">
+                            <input type="email" class="form-control" placeholder="Correo" formControlName="email">
                             <div class="input-group-append">
                               <div class="input-group-text">
                                 <span class="fas fa-envelope"></span>
@@ -66,7 +70,7 @@
                 <div class="row">                    
                     <div class="col-sm-6">
                         <div class="input-group mb-3">
-                            <input type="password" class="form-control" placeholder="Contraseña">
+                            <input type="password" class="form-control" placeholder="Contraseña" formControlName="password">
                             <div class="input-group-append">
                               <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -76,7 +80,7 @@
                     </div>
                     <div class="col-sm-6">
                         <div class="input-group mb-3">
-                            <input type="password" class="form-control" placeholder="Repetir contraseña">
+                            <input type="password" class="form-control" placeholder="Repetir contraseña" formControlName="password2">
                             <div class="input-group-append">
                               <div class="input-group-text">
                                 <span class="fas fa-lock"></span>
@@ -89,7 +93,7 @@
                 <div class="row">
                     <div class="col-sm-6">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="RUC">
+                            <input type="text" class="form-control" placeholder="RUC" formControlName="companyRuc">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                 <span class="fas fa-building"></span>
@@ -101,7 +105,7 @@
                 <div class="row">
                     <div class="col-sm-12">
                         <div class="input-group mb-3">
-                            <input type="text" class="form-control" placeholder="Nombre comercial">
+                            <input type="text" class="form-control" placeholder="Nombre comercial" formControlName="companyComercialName">
                             <div class="input-group-append">
                                 <div class="input-group-text">
                                 <span class="fas fa-building"></span>
@@ -110,21 +114,69 @@
                         </div>
                     </div>
                 </div>
-              <div class="row">
-                <div class="col-8">
-                  <div class="icheck-primary">
-                    <input type="checkbox" id="agreeTerms" name="terms" value="agree">
-                    <label for="agreeTerms" class="h6">
-                    Estoy de acuerdo con los <a href="#">terminos</a>
-                    </label>
+                <div class="row">
+                  <div class="col-sm-12">
+                    <div class="input-group mb-3">
+                      <input type="email" class="form-control" placeholder="Correo de la empresa" formControlName="companyEmail">
+                      <div class="input-group-append">
+                          <div class="input-group-text">
+                          <span class="fas fa-envelope"></span>
+                          </div>
+                      </div>
+                    </div>
+                  </div>                  
+                </div>
+                <div class="row">
+                  <div class="col-sm-6">
+                    <div class="input-group mb-3">
+                      <input type="text" class="form-control" placeholder="Telefono de la empresa" formControlName="companyPhone">
+                      <div class="input-group-append">
+                          <div class="input-group-text">
+                          <span class="fas fa-mobile"></span>
+                          </div>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="col-sm-6">
+                    <div class="input-group mb-3">
+                      <select class="form-control" name="companyType" id="companyType" formControlName="companyType">
+                        <option *ngFor="let item of lcItems" value="{{item.lcValue}}">{{item.lcName}}</option>                        
+                      </select>    
+                    </div>
                   </div>
                 </div>
-                <!-- /.col -->
-                <div class="col-4">
-                  <button type="submit" class="btn btn-primary btn-block">Registrar</button>
+                <div class="row">
+                  <div class="col text-danger">
+                    <p *ngIf="fieldNoValidate('firstName')">El nombre es obligatorio</p>
+                    <p *ngIf="fieldNoValidate('lastName')">El apellido es obligatorio</p>
+                    <p *ngIf="fieldNoValidate('userName')">El nombre de usuario es obligatorio</p>
+                    <p *ngIf="fieldNoValidate('email')">El email es obligatorio y tiene que ser valido</p>
+                    <!-- <p *ngIf="fieldNoValidate('password')">La contraseña es obligatoria</p>
+                    <p *ngIf="fieldNoValidate('password2')">La confirmacion de la contraseña es obligatoria</p> -->
+                    <p *ngIf="passwordsNotValid()">Las contraseñas deben de ser iguales</p>
+                    <p *ngIf="fieldNoValidate('companyRuc')">El Ruc es obligatorio</p>
+                    <p *ngIf="fieldNoValidate('companyComercialName')">El nombre comercial es obligatorio</p>
+                    <p *ngIf="fieldNoValidate('companyEmail')">El correo de la empresa es obligatorio</p>
+                    <p *ngIf="fieldNoValidate('companyPhone')">El telefono de la empresa es obligatorio</p>
+                    <p *ngIf="fieldNoValidate('companyType')">El tipo de empresa es obligatorio</p>
+                    <p *ngIf="accepTerms()">Debe de aceptar los terminos y condiciones</p>
+                  </div>
                 </div>
-                <!-- /.col -->
-              </div>
+                <div class="row">
+                  <div class="col-8">
+                    <div class="icheck-primary">
+                      <input type="checkbox" id="agreeTerms" name="terms" formControlName="terms">
+                      <label for="agreeTerms" class="h6">
+                      Estoy de acuerdo con los <a href="#">terminos</a>
+                      </label>
+                    </div>
+                  </div>
+                  <!-- /.col -->
+                  <div class="col-4">
+                    <button ng-disabled="false" type="submit" class="btn btn-primary btn-block">Registrar</button>
+                  </div>
+                  <!-- /.col -->
+                </div>
             </form>
       
             <!-- <div class="social-auth-links text-center">

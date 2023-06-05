@@ -17,7 +17,7 @@ export const routes: Routes = [
         path: 'calculo-tarifas',
         component: PagesComponent,
         children: [
-            { path: 'lima-callao', component: RateCalculationLimaCallaoComponent, data: {title: 'Calculo Tarifas Lima - Callao'}},
+            { path: 'lima-callao', component: RateCalculationLimaCallaoComponent, data: {title: 'Calculo Tarifas Lima y Callao'}},
             { path: 'provincia', component: RateCalculationProvinceComponent, data: {title: 'Calculo Tarifas Provincia'}}
         ]
     }

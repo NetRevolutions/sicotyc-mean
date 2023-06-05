@@ -3,6 +3,7 @@ import { ExtraOptions, PreloadAllModules, RouterModule, Routes } from '@angular/
 import { AuthRoutingModule } from './auth/auth.routing';
 import { Error500Component } from './error/error-500/error-500.component';
 import { PagesRoutingModule } from './pages/pages.routing';
+import { ComponentRoutingModule } from './components/components.routing';
 
 const routes: Routes = [
   {path: '', redirectTo: '/dashboard', pathMatch: 'full'},
@@ -18,7 +19,8 @@ const routes: Routes = [
   imports: [
     RouterModule.forRoot(routes), //, routerConfig
     PagesRoutingModule,
-    AuthRoutingModule
+    AuthRoutingModule,
+    ComponentRoutingModule
   ],
   exports: [ RouterModule]
 })

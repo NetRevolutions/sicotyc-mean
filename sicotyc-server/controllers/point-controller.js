@@ -68,16 +68,16 @@ const getPointByName = async(req, res = response) => {
 
 const createPoint = async(req, res = response) => {
 
-    const { pointName, pointAliasName, ...fields } = req.body;
+    const { ...fields } = req.body;
 
     try {
 
-        const existPoint = await Point.findOne({ pointName, pointAliasName });
+        const existPoint = await Point.findOne({ pointName: fields.pointName, pointAliasName: fields.pointAliasName });
 
         if ( existPoint ) {
             return res.status(404).json({
                 ok: false,
-                msg: 'El punto con el nombre ' + pointName + ' y alias ' + pointAliasName + ' ya se encuentra registrado'
+                msg: 'El punto con el nombre ' + fields.pointName + ' y alias ' + fields.pointAliasName + ' ya se encuentra registrado'
             });
         }
 

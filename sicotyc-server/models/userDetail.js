@@ -6,7 +6,7 @@ const UserDetailSchema = new Schema({
     dateOfBirth         : { type: Date, required: true },
     address             : { type: String },
     typeOfDocument      : { type: String, required: true },
-    numberOfDocument    : { type: String, required: true },
+    numberOfDocument    : { type: String, required: true },    
     createdBy           : { type: String, required: true, default: 'SYSTEM' },
     createdUtc          : { type: Date, required: true, default: new Date() },
     lastModifiedBy      : { type: String, required: false },

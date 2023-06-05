@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewContainerRef, ViewEncapsulation } from '@angular/core';
-import { MainSidebarService } from './main-sidebar.service';
+import { MainSidebarService } from '../../../services/main-sidebar.service';
 
 @Component({
   selector: 'main-sidebar',

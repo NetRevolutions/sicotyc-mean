@@ -12,6 +12,7 @@ import { ControlSidebarComponent } from './layout/control-sidebar/control-sideba
 import { MainFooterComponent } from './layout/main-footer/main-footer.component';
 import { MainSidebarComponent } from './layout/main-sidebar/main-sidebar.component';
 import { NavbarComponent } from './layout/navbar/navbar.component';
+import { UserOptionsComponent } from './common/user-options/user-options.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import { NavbarComponent } from './layout/navbar/navbar.component';
     ControlSidebarComponent,
     MainFooterComponent,
     MainSidebarComponent,
-    NavbarComponent
+    NavbarComponent,
+    UserOptionsComponent
   ],
   exports: [
     // Common

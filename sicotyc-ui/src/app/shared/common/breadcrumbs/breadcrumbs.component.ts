@@ -1,7 +1,6 @@
 import { ChangeDetectionStrategy, Component, OnDestroy, OnInit, ViewEncapsulation } from '@angular/core';
 import { ActivationEnd, Router } from '@angular/router';
 import { filter, map, Subscription } from 'rxjs';
-import { BreadcrumbsService } from './breadcrumbs.service';
 
 @Component({
   selector: 'app-breadcrumbs',
@@ -21,7 +20,7 @@ export class BreadcrumbsComponent implements OnInit, OnDestroy
   constructor( private _router: Router) {
     this.titleSubs$ = this.getPathTitle()
                         .subscribe(({title}) => {      
-                          this.title = title;;
+                          this.title = title;
                         });
   }
 

@@ -10,7 +10,7 @@ const login = async(req, res = response) => {
 
     try {
 
-        // Verficar Email
+        // Verficar Email        
         const userDB = await User.findOne({ email });
         
         if ( !userDB ) {

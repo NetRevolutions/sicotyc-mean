@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewContainerRef, ViewEncapsulation } from '@angular/core';
-import { MenuService } from './menu.service';
+import { MenuService } from '../../../services/menu.service';
 
 @Component({
   selector: 'app-menu',

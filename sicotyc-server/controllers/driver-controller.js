@@ -69,15 +69,15 @@ const getDriver = async(req, res = response) => {
 };
 
 const createDriver = async(req, res = response) => {
-    const { licenseNumber, ...fields } = req.body;
+    const { ...fields } = req.body;
 
     try {
 
-        const existDriver = await Driver.findOne({ licenseNumber });
+        const existDriver = await Driver.findOne({ licenseNumber: fields.licenseNumber });
         if ( existDriver ) {
             return res.status(404).json({
                 ok: false,
-                msg: 'El conductor con licencia ' + licenseNumber + ' ya se encuentra registrado'
+                msg: 'El conductor con licencia ' + fields.licenseNumber + ' ya se encuentra registrado'
             });
         }
 

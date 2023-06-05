@@ -42,10 +42,10 @@ const getRole = async(req, res = response) => {
 
 const createRole = async(req, res = response) => {
     
-    const { roleName, ...fields } = req.body;
+    const { ...fields } = req.body;
 
     try {
-        const existRole = await Role.findOne({ roleName });
+        const existRole = await Role.findOne({ roleName: fields.roleName });
 
         if (existRole) {
             return res.status(400).json({

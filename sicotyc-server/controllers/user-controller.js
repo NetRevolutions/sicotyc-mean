@@ -18,11 +18,10 @@ const getUsers = async(req, res) => {
 
 const createUser = async(req, res = response) => {
 
-    const { email, password, ...fields } = req.body;    
+    const { ...fields } = req.body;  
 
-    try {
-        
-        const existEmail = await User.findOne({ email });
+    try { 
+        const existEmail = await User.findOne({ email: fields.email });
         if ( existEmail ) {
             return res.status(400).json({
                 ok: false,
@@ -36,10 +35,13 @@ const createUser = async(req, res = response) => {
 
         // Encriptar contraseña
         const salt = bcrypt.genSaltSync();
-        fields.password = bcrypt.hashSync( password, salt );
+        fields.password = bcrypt.hashSync( fields.password, salt );
 
-        const user = new User( fields );               
-        await user.save();        
+        const user = new User( fields );   
+            
+        await user.save();
+
+        console.log('user', user);      
 
         // Asignar Role por defecto (Coordinador):
         let role = await Role.findOne({roleName: 'Coordinador'});
@@ -48,22 +50,25 @@ const createUser = async(req, res = response) => {
 
         // Guardamos en la table UserRole
         const userRole = new UserRole({
-            user_id: user.id,
-            role_id: role._id,
+            user: user.id,
+            role: role._id,
             createdBy: req.uid,
             createdUtc: new Date()
         });
         
-        await userRole.save();        
+        await userRole.save();  
+        
+        const roles = [];
+        roles.push(role._id);
 
         // Generar el TOKEN - JWT
-        // const token = await generateJWT( req.uid, req.roles); 
+        const token = await generateJWT( user._id, roles); 
         // Evaluar si enviamos el uid y roles del usuario creado o mantenemos el actual
 
         res.json({
             ok: true,
             user,
-            // token // No es necesario enviarlo
+            token 
         });
 
     } catch (error) {
@@ -93,10 +98,10 @@ const updateUser = async(req, res = response) => {
         }
 
         // Actualizaciones
-        const { password, email, ...fields } = req.body;
+        const { fields } = req.body;
 
-        if ( userDB.email !== email ) {
-            const existEmail = await User.findOne({ email });
+        if ( userDB.email !== fields.email ) {
+            const existEmail = await User.findOne({ email: fields.email });
             if (existEmail ) {
                 return res.status(400).json({
                     ok: false,

@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewContainerRef, ViewEncapsulation } from '@angular/core';
-import { NotificationsService } from './notifications.service';
+import { NotificationsService } from '../../../services/notifications.service';
 
 @Component({
   selector: 'notifications',

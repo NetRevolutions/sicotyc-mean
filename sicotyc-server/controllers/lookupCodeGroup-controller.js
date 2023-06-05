@@ -14,16 +14,16 @@ const getLookupCodeGroups = async(req, res = response) => {
 
 const createLookupCodeGroups = async(req, res = response) => {
 
-    const { lookupCodeGroupName, ...fields } = req.body;
+    const { ...fields } = req.body;
 
     try {
 
-        const existLCG = await LCG.findOne({ lookupCodeGroupName });
+        const existLCG = await LCG.findOne({ lookupCodeGroupName: fields.lookupCodeGroupName });
 
         if (existLCG) {
             return res.status(400).json({
                 ok: false,
-                msg: 'El nombre ' + lookupCodeGroupName + ' ya se encuentra registrado'
+                msg: 'El nombre ' + fields.lookupCodeGroupName + ' ya se encuentra registrado'
             });
         }
 
@@ -99,7 +99,7 @@ const deleteLookupCodeGroup = async(req, res = response) => {
         }
 
         // Validar si existe algun Lookup Code asociado al Lookup Code Group
-        const existLCGInLC = await LC.findOne({ lookupCodeGroup_id: id });
+        const existLCGInLC = await LC.findOne({ lookupCodeGroup: id });
         
         if ( existLCGInLC ) {
             return res.status(404).json({

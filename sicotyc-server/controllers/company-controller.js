@@ -20,19 +20,20 @@ const getCompanyByRuc = async(req, res = response) => {
     try {
         // TODO: peding helper to validate RUC   
 
-        const company = await Company.findOne({ ruc })
+        const company = await Company.findOne({ ruc });        
 
-        if (!company) {
-            return res.status(404).json({
-                ok: false,
-                msg: 'No existe empresa con ese nro de RUC'
+        if (company) {
+            res.json({
+                ok: true,
+                company
             });
         } 
-
-        res.json({
-            ok: true,
-            company
-        });
+        else {
+            res.json({
+                ok: false,
+                msg: 'No existe empresa con ese nro de RUC'
+            })
+        }
         
     } catch (error) {
         console.log(error);
@@ -73,16 +74,16 @@ const getCompany = async(req, res = response) => {
 
 const createCompany = async(req, res = response) => {
 
-    const { ruc, nombreComercial, ...fields } = req.body;   
+    const { ...fields } = req.body;   
 
     try {
 
-        const existCompany = await LCG.findOne({ ruc });
+        const existCompany = await Company.findOne({ ruc: fields.ruc });
 
         if ( existCompany ) {
             return res.status(400).json({
                 ok: false,
-                msg: 'La empresa' + nombreComercial + 'ruc: ' + ruc + ' ya se encuentra registrada'
+                msg: 'La empresa' + fields.nombreComercial + 'ruc: ' + fields.ruc + ' ya se encuentra registrada'
             });
         }
 

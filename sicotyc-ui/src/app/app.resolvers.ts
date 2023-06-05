@@ -1,7 +1,7 @@
 import { Injectable } from "@angular/core";
 import { ActivatedRouteSnapshot, Resolve, RouterStateSnapshot } from "@angular/router";
 import { forkJoin, Observable } from "rxjs";
-import { MessagesService } from "./shared/common/messages/messages.service";
+import { MessagesService } from "./services/messages.service";
 
 @Injectable({
     providedIn: 'root'

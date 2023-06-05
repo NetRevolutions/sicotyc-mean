@@ -6,12 +6,14 @@ import { AppRoutingModule } from './app.routing';
 import { PagesModule } from './pages/pages.module';
 import { AuthModule } from './auth/auth.module';
 //import { AuthModuleGeneral } from './core/auth/auth.module';
-import { CoreModule } from './core/core.module';
+import { ComponentsModule } from './components/components.module';
+
 
 // Components
 import { AppComponent } from './app.component';
 import { Error500Component } from './error/error-500/error-500.component';
 import { Error404Component } from './error/error-404/error-404.component';
+
 
 
 
@@ -26,10 +28,7 @@ import { Error404Component } from './error/error-404/error-404.component';
     AppRoutingModule,
     PagesModule,
     AuthModule,
-    // AuthModuleGeneral,
-    // Core module of your application
-    CoreModule,
-
+    ComponentsModule
   ],
   bootstrap: [AppComponent]
 })
