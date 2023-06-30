@@ -19,7 +19,7 @@ const router = Router();
 
 router.get( '/', 
     [
-        validateJWT
+        // validateJWT
     ], 
     getRoles 
 );

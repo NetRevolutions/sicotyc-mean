@@ -13,6 +13,7 @@ import { MainFooterComponent } from './layout/main-footer/main-footer.component'
 import { MainSidebarComponent } from './layout/main-sidebar/main-sidebar.component';
 import { NavbarComponent } from './layout/navbar/navbar.component';
 import { UserOptionsComponent } from './common/user-options/user-options.component';
+import { FormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -44,6 +45,7 @@ import { UserOptionsComponent } from './common/user-options/user-options.compone
   ],
   imports: [
     CommonModule,
+    FormsModule,
     RouterModule    
   ]  
 })

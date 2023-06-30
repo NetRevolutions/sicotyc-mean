@@ -1,13 +1,21 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import Swal  from 'sweetalert2';
+
+// Enums
 import { enumLookupCodeGroup } from 'app/enum/lookupCodeGroups.enum';
-import { returnLookupCodes } from 'app/interfaces/lookup.interface';
-import { RegisterCompany } from 'app/interfaces/register-company.interface';
+
+// Interfaces
+import { IReturnLookupCodes } from 'app/interfaces/lookup.interface';
+import { IRegisterCompany } from 'app/interfaces/register-company.interface';
 
 // Services
 import { CompanyService } from 'app/services/company.service';
 import { LookupService } from 'app/services/lookup.service';
 import { UserService } from 'app/services/user.service';
+import { MailService } from 'app/services/mail.service';
+
 
 @Component({
   selector: 'auth-sign-up',
@@ -18,7 +26,7 @@ import { UserService } from 'app/services/user.service';
 export class AuthSignUpComponent implements OnInit {
 
   public formSubmitted = false;
-  public lcItems: [returnLookupCodes];
+  public lcItems: [IReturnLookupCodes];
 
   public registerForm = this.fb.group({
     firstName: ['', [Validators.required, Validators.minLength(3)]],
@@ -45,14 +53,16 @@ export class AuthSignUpComponent implements OnInit {
     private fb: FormBuilder ,
     private userService: UserService,
     private companyService: CompanyService,
-    private lookupService: LookupService)
+    private lookupService: LookupService,
+    private mailService: MailService,
+    private router: Router)
   {
   }
   
 
   ngOnInit(): void {
-    this.lookupService.getLookupCodesByLookupName(enumLookupCodeGroup.TIPO_EMPRESA)
-    .then((results: [returnLookupCodes]) => {
+    this.lookupService.getLookupCodesByLookupCodeGroupName(enumLookupCodeGroup.TIPO_EMPRESA)
+    .then((results: [IReturnLookupCodes]) => {
       this.lcItems = results;
 
       this.lcItems.unshift({
@@ -62,9 +72,8 @@ export class AuthSignUpComponent implements OnInit {
         lcName: '-- Tipo de Empresa --',
         lcValue: '',
         lcOrder: 0
-      });
+      });      
       
-      // console.log(results);
     })
   }
 
@@ -83,7 +92,7 @@ export class AuthSignUpComponent implements OnInit {
     .subscribe( (usr: any) => {     
       
       // Registrar empresa
-      let companyEntity = {} as RegisterCompany;
+      let companyEntity = {} as IRegisterCompany;
       companyEntity.ruc = this.registerForm.value['companyRuc'];
       companyEntity.nombreComercial = this.registerForm.value['companyComercialName'];
       companyEntity.companyEmail = this.registerForm.value['companyEmail'];
@@ -101,18 +110,71 @@ export class AuthSignUpComponent implements OnInit {
             this.userService.createUserCompany( usr.user.uid, comp2.company._id )
             .subscribe((usrComp: any) => {              
               this.formSubmitted = false;
+              // Seteo de token
+              localStorage.setItem('token', usr.token);
+
+              // Envio de correo
+              this.mailService.registerUser( this.registerForm.value )
+              .subscribe((resp: any) => {
+                if (resp.ok) {
+                  Swal.fire('Registro exitoso', 
+                  resp.msg, 
+                  'success')
+                  .then(() => {
+                    this.router.navigateByUrl('/sign-in');
+                  });
+                }
+                else {
+                  Swal.fire('ups!!',
+                  'ocurrio un problema durante el envio de correo, contacte al administrador',
+                  'error');
+                }                
+              });
+              
             });
-          }, (err) => console.warn(err.error.msg));
+          }, (err) => {
+            //console.warn(err.error.msg)
+            Swal.fire('Error', err.error.msg, 'error');
+          }
+          );
         }
         else {
           // Register UserCompany
           this.userService.createUserCompany( usr.user.uid, comp.company._id )
             .subscribe((usrComp: any) => {              
               this.formSubmitted = false;
+              // Seteo de token
+              localStorage.setItem('token', usr.token);
+
+              // Envio de correo
+              this.mailService.registerUser( this.registerForm.value )
+              .subscribe((resp: any) => {
+                if (resp.ok) {
+                  Swal.fire('Registro exitoso', 
+                  resp.msg, 
+                  'success')
+                  .then(() => {
+                    this.router.navigateByUrl('/sign-in');
+                  });
+                }
+                else {
+                  Swal.fire('ups!!',
+                  'ocurrio un problema durante el envio de correo, contacte al administrador',
+                  'error');
+                }                
+              });
             });
         }
-      }, (err) => console.warn( err.error.msg ));    
-    }, (err) => console.warn( err.error.msg ));
+      }, (err) => {
+        //console.warn( err.error.msg )
+        Swal.fire('Error', err.error.msg, 'error');
+      }
+      );    
+    }, (err) => {
+      // console.warn( err.error.msg )
+      Swal.fire('Error', err.error.msg, 'error');
+    }
+    );
   }
 
   fieldNoValidate(field: string): boolean {
@@ -149,7 +211,5 @@ export class AuthSignUpComponent implements OnInit {
         pass2Control.setErrors({ noEqual: true });
       }
     }
-  }
-
-  
+  }  
 }

@@ -55,4 +55,8 @@ export class BreadcrumbsComponent implements OnInit, OnDestroy
       map((event: ActivationEnd) => event.snapshot.data ),
     );
   }
+
+  hasToken() {
+    return localStorage.getItem('token') ? true : false; 
+  }
 }

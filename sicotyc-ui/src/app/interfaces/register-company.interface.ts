@@ -1,4 +1,4 @@
-export interface RegisterCompany {
+export interface IRegisterCompany {
     ruc: string,
     nombreComercial: string;
     companyEmail: string;

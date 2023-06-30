@@ -5,8 +5,8 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
-        <a routerLink="" class="nav-link">Home</a>
+      <li *ngIf="hasToken()" class="nav-item d-none d-sm-inline-block">
+        <a routerLink="/dashboard" class="nav-link">Home</a>
       </li>
       <!-- <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
@@ -24,13 +24,17 @@
 
     <!-- Right navbar links -->
     <ul class="navbar-nav ml-auto">
-      <search></search>
+      <search *ngIf="hasToken()"></search>
 
-      <messages></messages>      
+      <messages *ngIf="hasToken()"></messages>      
       
-      <notifications></notifications>
+      <notifications *ngIf="hasToken()"></notifications>
 
-      <user-options></user-options>
+      <user-options *ngIf="hasToken()"></user-options>
+
+      <li *ngIf="!hasToken()" class="nav-item dropdown">
+        <a routerLink="/sign-in" class="nav-link">Iniciar session</a>
+      </li>      
 
       <li class="nav-item">
         <a class="nav-link" data-widget="fullscreen" role="button">

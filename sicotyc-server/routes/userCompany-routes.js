@@ -5,10 +5,12 @@
 const { Router } = require('express');
 const { check } = require('express-validator');
 const { validateFields } = require('../middlewares/validate-fields');
-const { createUserCompany, deleteUserCompany } = require('../controllers/userCompany-controller');
+const { getUserCompany, createUserCompany, deleteUserCompany } = require('../controllers/userCompany-controller');
 const { validateJWT } = require('../middlewares/validate-jwt');
 
 const router = Router();
+
+router.get('/:uid', [], getUserCompany);
 
 router.post('/',
     [

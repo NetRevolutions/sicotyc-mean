@@ -17,6 +17,11 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
+            "allowedCommonJsDependencies": [
+              "jquery",
+              "admin-lte",
+              "sweetalert2"
+            ],
             "outputPath": "dist/sicotyc",
             "index": "src/index.html",
             "main": "src/main.ts",
@@ -29,36 +34,26 @@
               "src/favicon.ico",
               "src/assets"
             ],
-            "styles": [
-              "src/styles.css",
+            "styles": [         
+              "src/styles.css",     
               "node_modules/admin-lte/plugins/fontawesome-free/css/all.css",
               "node_modules/admin-lte/plugins/overlayScrollbars/css/OverlayScrollbars.css",
-              "node_modules/admin-lte/plugins/daterangepicker/daterangepicker.css",
-              "node_modules/admin-lte/plugins/icheck-bootstrap/icheck-bootstrap.min.css",
-              "node_modules/admin-lte/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css",
-              "node_modules/admin-lte/plugins/select2/css/select2.min.css",
-              "node_modules/admin-lte/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css",
-              "node_modules/admin-lte/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css",
-              "node_modules/admin-lte/plugins/bs-stepper/css/bs-stepper.min.css",
-              "node_modules/admin-lte/plugins/dropzone/min/dropzone.min.css",              
-              "node_modules/admin-lte/dist/css/adminlte.css"
+              "node_modules/admin-lte/dist/css/adminlte.css", 
+              "node_modules/admin-lte/plugins/sweetalert2/sweetalert2.min.css",            
+              "node_modules/admin-lte/dist/css/adminlte.css"              
             ],
-            "scripts": [
-              "node_modules/admin-lte/plugins/jquery/jquery.js",
+            "scripts": [   
+              "src/assets/initMainPage.js",           
+              "node_modules/admin-lte/plugins/jquery/jquery.min.js",
+              "node_modules/admin-lte/plugins/jquery-ui/jquery-ui.min.js",
               "node_modules/admin-lte/plugins/bootstrap/js/bootstrap.bundle.js",
-              "node_modules/admin-lte/plugins/select2/js/select2.full.min.js",
-              "node_modules/admin-lte/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js",
-              "node_modules/admin-lte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.js",              
+              "node_modules/admin-lte/plugins/overlayScrollbars/js/jquery.overlayScrollbars.js",
+              "node_modules/admin-lte/dist/js/adminlte.js",
               "node_modules/admin-lte/plugins/jquery-mousewheel/jquery.mousewheel.js",
               "node_modules/admin-lte/plugins/raphael/raphael.js",
               "node_modules/admin-lte/plugins/jquery-mapael/jquery.mapael.js",
               "node_modules/admin-lte/plugins/chart.js/Chart.js",
-              "node_modules/admin-lte/plugins/moment/moment.min.js",
-              "node_modules/admin-lte/plugins/inputmask/jquery.inputmask.min.js",
-              "node_modules/admin-lte/plugins/daterangepicker/daterangepicker.js",
-              "node_modules/admin-lte/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js",
-              "node_modules/admin-lte/plugins/bs-stepper/js/bs-stepper.min.js",
-              "node_modules/admin-lte/plugins/dropzone/min/dropzone.min.js",
+              "node_modules/admin-lte/plugins/sweetalert2/sweetalert2.all.min.js",              
               "node_modules/admin-lte/dist/js/adminlte.js"        
             ]
           },

@@ -6,11 +6,14 @@
             <a class="h1"><b>SICOTYC</b></a>
           </div>
           <div class="card-body">
-            <p class="login-box-msg">Ingrese sus datos</p>
-      
-            <form><!-- action="../../index3.html" method="post" -->                
+            <p class="login-box-msg">Ingrese sus datos</p>      
+            <form
+              autocomplete="off"
+              [formGroup]="loginForm"
+              (submit)="login()"
+              id="loginForm">         
               <div class="input-group mb-3">
-                <input type="email" id="correo" name="correo" class="form-control" placeholder="Correo">
+                <input type="email" id="correo" name="correo" class="form-control" placeholder="Correo" formControlName="email">
                 <div class="input-group-append">
                   <div class="input-group-text">
                     <span class="fas fa-envelope"></span>
@@ -18,7 +21,7 @@
                 </div>
               </div>
               <div class="input-group mb-3">
-                <input type="password" id="contrasena" name="contrasena" class="form-control" placeholder="Contraseña">
+                <input type="password" id="contrasena" name="contrasena" class="form-control" placeholder="Contraseña" formControlName="password">
                 <div class="input-group-append">
                   <div class="input-group-text">
                     <span class="fas fa-lock"></span>
@@ -28,7 +31,7 @@
               <div class="row">
                 <div class="col-6">
                   <div class="icheck-primary">
-                    <input type="checkbox" id="remember" name="remember">
+                    <input type="checkbox" id="remember" name="remember" formControlName="remember">
                     <label for="remember">
                       Recuerdame
                     </label>
@@ -39,6 +42,12 @@
                   <button type="submit" class="btn btn-primary btn-block" id="signin" name="sigin">Iniciar Sesion</button>
                 </div>
                 <!-- /.col -->
+              </div>
+              <div class="row">
+                <div class="col text-danger">                  
+                  <p *ngIf="fieldNoValidate('email')">El email es obligatorio y tiene que ser valido</p>
+                  <p *ngIf="fieldNoValidate('password')">La contraseña es obligatoria</p>                  
+                </div>
               </div>
             </form>
       

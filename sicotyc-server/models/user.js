@@ -8,6 +8,7 @@ const UserSchema = Schema({
     userName                  : { type: String, unique: true, required: true },
     email                     : { type: String, unique: true, required: true, trim: true, lowercase: true },
     emailConfirmed            : { type: Boolean, default: false },
+    mobile                    : { type: String, required: true },
     password                  : { type: String, required: true },
     imagePath                 : { type: String },
     refreshToken              : { type: String },

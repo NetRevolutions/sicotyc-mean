@@ -1,9 +1,9 @@
-export interface returnLookupCodeGroups {
+export interface IReturnLookupCodeGroups {
     lcgId: string,
     lcgName: string
 }
 
-export interface returnLookupCodes {
+export interface IReturnLookupCodes {
     lcgId: string,
     lcgName: string,
     lcId: string,

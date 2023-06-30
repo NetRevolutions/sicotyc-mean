@@ -3,6 +3,31 @@ const User              = require('../models/user');
 const Role              = require('../models/role');
 const UserRole          = require('../models/userRole');
 
+const getRolesByUserId = async(req, res = response) => {
+    const uid = req.params.uid;
+
+    try {
+        const roles = await UserRole.find({ user: uid }).select('role -_id');   
+        const rolesIds = [];
+        roles.forEach(element => {
+            rolesIds.push(element.role);
+        });    
+
+        res.json({
+            ok: true,
+            roles: rolesIds 
+        });
+
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Error inesperado... revisar logs'
+        });
+    }
+
+};
+
 const createUserRole = async(req, res= response) => {
     const { ...fields } = req.body;
 
@@ -87,6 +112,7 @@ const deleteUserRole = async(req, res = response) => {
 }
 
 module.exports = {
+    getRolesByUserId,
     createUserRole,
     deleteAllUserRole,
     deleteUserRole

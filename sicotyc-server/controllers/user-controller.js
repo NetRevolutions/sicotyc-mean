@@ -5,13 +5,24 @@ const Role              = require('../models/role');
 const UserRole          = require('../models/userRole');
 const { generateJWT }   = require('../helpers/jwt');
 
-const getUsers = async(req, res) => {
+const getUsers = async(req, res = response) => {
 
     const users = await User.find({}, 'firstName lastName userName email imagePath')    
 
     res.json({
         ok: true,
         users,
+        uid: req.uid
+    });
+};
+
+const getUser = async(req, res = response) => {
+     
+    const user = await User.findById({ _id: req.uid });
+
+    res.json({
+        ok: true,
+        user,
         uid: req.uid
     });
 };
@@ -29,6 +40,14 @@ const createUser = async(req, res = response) => {
             });
         }
 
+        const existUserName = await User.findOne({ userName: fields.userName });
+        if ( existUserName ) {
+            return res.status(400).json({
+                ok: false,
+                msg: 'El nombre de usuario ya se encuentra registrado'
+            });
+        }
+
         // Creacion
         fields.createdBy = req.uid;
         fields.createdUtc = new Date();
@@ -41,7 +60,7 @@ const createUser = async(req, res = response) => {
             
         await user.save();
 
-        console.log('user', user);      
+        //console.log('user', user);      
 
         // Asignar Role por defecto (Coordinador):
         let role = await Role.findOne({roleName: 'Coordinador'});
@@ -60,6 +79,8 @@ const createUser = async(req, res = response) => {
         
         const roles = [];
         roles.push(role._id);
+
+        //console.log('user', user);
 
         // Generar el TOKEN - JWT
         const token = await generateJWT( user._id, roles); 
@@ -98,15 +119,25 @@ const updateUser = async(req, res = response) => {
         }
 
         // Actualizaciones
-        const { fields } = req.body;
+        const { ...fields } = req.body;
 
         if ( userDB.email !== fields.email ) {
             const existEmail = await User.findOne({ email: fields.email });
-            if (existEmail ) {
+            if ( existEmail ) {
                 return res.status(400).json({
                     ok: false,
                     msg: 'Ya existe un usuario con ese email'
                 });
+            }
+        }
+
+        if ( userDB.userName !== fields.userName ) {
+            const existUserName = await User.findOne({ userName: fields.userName });
+            if ( existUserName ) {
+                return res.status(400).json({
+                    ok: false,
+                    msg: 'Nombre de usuario ya existe'
+                })
             }
         }
 
@@ -164,6 +195,7 @@ const deleteUser = async(req, res = response ) => {
 };
 
 module.exports = {
+    getUser,
     getUsers,
     createUser,
     updateUser,

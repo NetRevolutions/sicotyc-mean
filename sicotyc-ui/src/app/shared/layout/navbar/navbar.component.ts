@@ -4,12 +4,13 @@ import { NavbarService } from '../../../services/navbar.service';
 @Component({
   selector: 'app-navbar',
   templateUrl: './navbar.component.html',
-  encapsulation: ViewEncapsulation.None,
-  changeDetection: ChangeDetectionStrategy.OnPush,
+  // encapsulation: ViewEncapsulation.None,
+  // changeDetection: ChangeDetectionStrategy.OnPush,
   exportAs: 'app-navbar'
 })
 export class NavbarComponent implements OnInit, OnDestroy
 {
+  
 
   /**
    * Constructor
@@ -32,7 +33,7 @@ export class NavbarComponent implements OnInit, OnDestroy
    */
   ngOnInit(): void
   {
-    
+    //this.hasToken();
   }
 
   /**
@@ -41,9 +42,12 @@ export class NavbarComponent implements OnInit, OnDestroy
   ngOnDestroy(): void
   {
     
-  }
+  }  
 
   // -----------------------------------------------------------------------------------------------------
   // @ Public methods
   // -----------------------------------------------------------------------------------------------------
+  hasToken() {
+    return localStorage.getItem('token') ? true : false;
+  }
 }

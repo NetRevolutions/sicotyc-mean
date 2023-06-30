@@ -158,7 +158,7 @@ const deleteCompany = async(req, res = response) => {
         }
 
         // Validamos si es usado en complement
-        const complementDB = await Complement.findOne({ company_id: companyDB._id });
+        const complementDB = await Complement.findOne({ company: companyDB._id });
         
         if ( complementDB ) {
             return res.status(404).json({
@@ -168,7 +168,7 @@ const deleteCompany = async(req, res = response) => {
         }
 
         // Validamos si es usado en User Company
-        const userCompanyDB = await UserCompany.findOne({ company_id: companyDB._id });
+        const userCompanyDB = await UserCompany.findOne({ company: companyDB._id });
         if ( userCompanyDB ) {
             return res.status(404).json({
                 ok: false,
@@ -177,7 +177,7 @@ const deleteCompany = async(req, res = response) => {
         }
 
         // Validamos si es usado en Vehicle
-        const vehicleDB = await Vehicle.findOne({ company_id: companyDB._id });
+        const vehicleDB = await Vehicle.findOne({ company: companyDB._id });
         if ( vehicleDB ) {
             return res.status(404).json({
                 ok: false,

@@ -30,11 +30,11 @@ const login = async(req, res = response) => {
         };
 
         // Obtener Roles por Usuario (buscar en el documento UserRole)
-        const userRolesDB = await UserRole.find({ user_id : userDB.id });
+        const userRolesDB = await UserRole.find({ user : userDB.id });
         const roles = [];
         if (userRolesDB && userRolesDB.length > 0) {
             userRolesDB.forEach(element => {
-                roles.push(element.role_id);
+                roles.push(element.role);
             });
         }
                 
@@ -62,20 +62,25 @@ const renewToken = async ( req, res = response ) => {
     const uid = req.uid;
 
     // Obtener Roles por Usuario (buscar en el documento UserRole)
-    const userRolesDB = await UserRole.find({ user_id : uid });
+    const userRolesDB = await UserRole.find({ user : uid });
     const roles = [];
     if (userRolesDB && userRolesDB.length > 0) {
         userRolesDB.forEach(element => {
-            roles.push(element.role_id);
+            roles.push(element.role);
         });
     }
     
     // Generar el TOKEN -JWT
     const token = await generateJWT( uid, JSON.stringify(roles) );
+
+    // Obtener el usuario por UID
+    const user = await User.findById( uid )
     
     res.json({
         ok: true,
-        token
+        token,
+        user,
+        roles
     });
 };
 

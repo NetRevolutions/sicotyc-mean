@@ -3,6 +3,17 @@ const User              = require('../models/user');
 const Company           = require('../models/company');
 const UserCompany       = require('../models/userCompany');
 
+const getUserCompany = async(req, res = response) => {
+    const user = req.params.uid;    
+
+    const userCompany = await UserCompany.findOne({ user });
+
+    res.json({
+        ok: true,
+        userCompany
+    })
+};
+
 const createUserCompany = async(req, res = response) => {
     const { ...fields } = req.body;
 
@@ -64,6 +75,7 @@ const deleteUserCompany = async(req, res = response) => {
 };
 
 module.exports = {
+    getUserCompany,
     createUserCompany,    
     deleteUserCompany
 }

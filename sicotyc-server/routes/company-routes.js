@@ -46,7 +46,7 @@ router.post( '',
         check('nombreComercial', 'El nombre de la empresa es requerido').not().isEmpty(),
         check('companyEmail', 'El correo de la empresa es requerido').isEmail(),
         check('companyPhone', 'El telefono de contacto de la empresa es requerido').not().isEmpty(),
-        check('typeOfCompany_id', 'El tipo de empresa es requerido').not().isEmpty(),
+        check('typeOfCompany', 'El tipo de empresa es requerido').not().isEmpty(),
         validateFields
     ],    
     createCompany
@@ -59,7 +59,7 @@ router.put( '/:id',
         check('nombreComercial', 'El nombre de la empresa es requerido').not().isEmpty(),
         check('companyEmail', 'El correo de la empresa es requerido').isEmail(),
         check('companyPhone', 'El telefono de contacto de la empresa es requerido').not().isEmpty(),
-        check('typeOfCompany_id', 'El tipo de empresa es requerido').not().isEmpty(),
+        check('typeOfCompany', 'El tipo de empresa es requerido').not().isEmpty(),
         validateFields
     ],
     updateCompany

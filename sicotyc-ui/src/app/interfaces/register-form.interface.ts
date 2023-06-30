@@ -1,5 +1,5 @@
 
-export interface RegisterForm {
+export interface IRegisterForm {
     firstName: string;
     lastName: string;
     userName: string;

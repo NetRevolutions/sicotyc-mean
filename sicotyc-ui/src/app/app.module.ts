@@ -7,6 +7,7 @@ import { PagesModule } from './pages/pages.module';
 import { AuthModule } from './auth/auth.module';
 //import { AuthModuleGeneral } from './core/auth/auth.module';
 import { ComponentsModule } from './components/components.module';
+import { FormsModule } from '@angular/forms'
 
 
 // Components
@@ -28,7 +29,7 @@ import { Error404Component } from './error/error-404/error-404.component';
     AppRoutingModule,
     PagesModule,
     AuthModule,
-    ComponentsModule
+    ComponentsModule    
   ],
   bootstrap: [AppComponent]
 })
