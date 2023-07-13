@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { environment } from 'environments/environment.development';
+import { environment } from 'environments/environment';
 
 const base_url = environment.base_url;
 
@@ -9,7 +9,7 @@ const base_url = environment.base_url;
 })
 export class RoleService {
 
-  constructor( private http: HttpClient) { }
+  constructor( private http: HttpClient ) { }
 
   getRoles() {
     return this.http.get(`${ base_url }/roles`);

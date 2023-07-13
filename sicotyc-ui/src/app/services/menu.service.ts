@@ -7,57 +7,58 @@ export class MenuService {
   // Por ahora es fijo, luego vendra de BD de manera dinamica
   menu: any[] = [
     {
-      title: 'Dashboard',
-      icon: 'nav-icon fas fa-tachometer-alt',
-      submenu: [
-        { title: 'Home', icon: 'far fa-circle nav-icon', url: '/dashboard'}
+      name: 'Dashboard',
+      iconClassesClasses: 'nav-iconClasses fas fa-tachometer-alt',    
+      // path: ['/'],  
+      children: [
+        { name: 'Home', iconClasses: 'far fa-circle nav-iconClasses', path: ['/']}
       ]
     },
     {
-      title: 'Operaciones',
-      icon: 'nav-icon fas fa-solid fa-wrench',
-      submenu: [
-        { title: 'Calculo de Tarifas Lima y Callao', icon: '', url: '/calculo-tarifas/lima-callao'},
-        { title: 'Calculo de Tarifas Provincia', icon: '', url: '/calculo-tarifas/provincia'},
-        { title: 'Solicitud de Serv. - Evaluacion', icon: '', url: '/'}
+      name: 'Operaciones',
+      iconClasses: 'nav-iconClasses fas fa-solid fa-wrench',
+      children: [
+        { name: 'Calculo de Tarifas Lima y Callao', iconClasses: 'far fa-circle nav-iconClasses', path: ['/calculo-tarifas/lima-callao']},
+        { name: 'Calculo de Tarifas Provincia', iconClasses: 'far fa-circle nav-iconClasses', path: ['/calculo-tarifas/provincia']},
+        { name: 'Solicitud de Serv. - Evaluacion', iconClasses: 'far fa-circle nav-iconClasses', path: ['/solicitud-servicio-evaluacion']}
       ]
     },
     {
-      title: 'Ordenes de Trabajo',
-      icon: 'nav-icon fas fa-regular fa-note',
-      submenu: [
-        {title: 'Creacion de Ordenes de Trabajo', icon: '', url: '/'},
-        {title: 'Control de Documentos', icon: '', url: '/'},
-        {title: 'Estado Ordenes de Trabajo', icon: '', url: '/'}
+      name: 'Ordenes de Trabajo',
+      iconClasses: 'nav-iconClasses fas fa-regular fa-note',
+      children: [
+        { name: 'Creacion de Ordenes de Trabajo', iconClasses: 'far fa-circle nav-iconClasses', path: ['/dashboard']},
+        { name: 'Control de Documentos', iconClasses: 'far fa-circle nav-iconClasses', path: ['/dashboard']},
+        { name: 'Estado Ordenes de Trabajo', iconClasses: 'far fa-circle nav-iconClasses', path: ['/dashboard']}
       ]
     },
     {
-      title: 'Administracion',
-      icon: 'nav-icon fas fa-solid fa-screwdriver-wrench',
-      submenu: [
-        {title: 'Cuentas de Usuario', icon: '', url: '/'},
-        {title: 'Roles', icon: '', url: '/'},
-        {title: 'Lookup', icon: '', url: '/'},
-        {title: 'Menu', icon: '', url: '/'},
+      name: 'Administracion',
+      iconClasses: 'nav-iconClasses fas fa-solid fa-screwdriver-wrench',
+      children: [
+        {name: 'Cuentas de Usuario', iconClasses: 'far fa-circle nav-iconClasses', path: ['/dashboard']},
+        {name: 'Roles', iconClasses: 'far fa-circle nav-iconClasses', path: ['/dashboard']},
+        {name: 'Lookup', iconClasses: 'far fa-circle nav-iconClasses', path: ['/dashboard']},
+        {name: 'Menu', iconClasses: 'far fa-circle nav-iconClasses', path: ['/dashboard']},
       ]
     },
     {
-      title: 'Mantenimientos',
-      icon: 'nav-icon fas fa-duotone fa-gear',
-      submenu: [
-        {title: 'Choferes', icon: '', url: '/'},
-        {title: 'Camiones', icon: '', url: '/'},
-        {title: 'Complementos', icon: '', url: '/'},
-        {title: 'Transportistas', icon: '', url: '/'},
-        {title: 'Almacenes', icon: '', url: '/'},
-        {title: 'Zonas', icon: '', url: '/'},
-        {title: 'Agencias y/o Clientes', icon: '', url: '/'},
-        {title: 'Tarifas x Distrito x Zona', icon: '', url: '/'},
-        {title: 'Tarifas x Agencia', icon: '', url: '/'},
-        {title: 'Peajes', icon: '', url: '/'}
+      name: 'Mantenimientos',
+      iconClasses: 'nav-iconClasses fas fa-duotone fa-gear',
+      children: [
+        {name: 'Choferes', iconClasses: 'far fa-circle nav-iconClasses', path: ['/dashboard']},
+        {name: 'Camiones', iconClasses: 'far fa-circle nav-iconClasses', path: ['/dashboard']},
+        {name: 'Complementos', iconClasses: 'far fa-circle nav-iconClasses', path: ['/dashboard']},
+        {name: 'Transportistas', iconClasses: 'far fa-circle nav-iconClasses', path: ['/dashboard']},
+        {name: 'Almacenes', iconClasses: 'far fa-circle nav-iconClasses', path: ['/dashboard']},
+        {name: 'Zonas', iconClasses: 'far fa-circle nav-iconClasses', path: ['/dashboard']},
+        {name: 'Agencias y/o Clientes', iconClasses: 'far fa-circle nav-iconClasses', path: ['/dashboard']},
+        {name: 'Tarifas x Distrito x Zona', iconClasses: 'far fa-circle nav-iconClasses', path: ['/dashboard']},
+        {name: 'Tarifas x Agencia', iconClasses: 'far fa-circle nav-iconClasses', path: ['/dashboard']},
+        {name: 'Peajes', iconClasses: 'far fa-circle nav-iconClasses', path: ['/dashboard']}
       ]
     }
   ]
-
+  
   constructor() { }
 }

@@ -1,4 +1,4 @@
-import { environment } from "environments/environment.development";
+import { environment } from "environments/environment";
 
 const base_url = environment.base_url;
 
@@ -12,8 +12,9 @@ export class User {
         public password?: string,
         public imagePath?: string,        
         public roles?: [],
-        public uid?: string
-    ) {}
+        public uid?: string,
+        public createdUtc?: Date
+    ) { }
 
     get imageUrl() {
         if ( this.imagePath ) {            
@@ -21,10 +22,11 @@ export class User {
         }
         else {
             return `${ base_url }/upload/users/no-image`;
-        }        
-    }    
+        }   
+    }
 
     get fullName() {
         return this.firstName + ' ' + this.lastName;
     }
+
 }

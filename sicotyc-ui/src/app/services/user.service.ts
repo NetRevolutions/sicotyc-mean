@@ -1,23 +1,17 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, map, tap } from "rxjs/operators";
-import { Observable, of } from 'rxjs';
-/* El tap le da como un paso mas a la respuesta que recibimos, 
- * contiene toda la respuesta y permite hacer algun trabajo adicional
- * sin afectar el resultado inicial  
-*/
-
-import { environment } from 'environments/environment.development';
+import { HttpClient } from '@angular/common/http';
+import { Observable, catchError, map, of, tap } from 'rxjs';
+import { environment } from 'environments/environment';
+import { Router } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 // Models
-import { User } from 'app/models/user.model';
+import { User } from '@/models/user.model';
 
-// Interfaces
-import { ILoginForm } from 'app/interfaces/login-form.interface';
-import { IRegisterForm } from 'app/interfaces/register-form.interface';
-import { IUserCompany } from 'app/interfaces/user-company.interface';
-import { IUpdateUserProfile } from 'app/interfaces/user-profile.interface';
-
+// Interface
+import { IUserRegisterForm } from '@/interfaces/user-register-form.interface';
+import { IUserProfileUpdate } from '@/interfaces/user-profile-update.interface';
+import { IUserLoginForm } from '@/interfaces/user-login-form.interface';
 
 const base_url = environment.base_url;
 
@@ -26,74 +20,67 @@ const base_url = environment.base_url;
 })
 export class UserService {
 
-  public user: User;  
+  public user: User
 
-  constructor( 
-    private http: HttpClient) { }
+  constructor( private http: HttpClient, private router: Router, private toastr: ToastrService) { }
 
-  get token(): string {
-    return localStorage.getItem('token') || '';
-  }
+  get token(): string { return localStorage.getItem('token') || ''; }
 
-  get uid(): string {
-    return this.user.uid || '';
-  }
+  get uid(): string { return this.user.uid || ''; }
 
-  validateToken(): Observable<boolean> {    
+  validateToken(): Observable<boolean> {
 
-    return this.http.get(`${ base_url }/login/renew`, {
-      headers: {
-        'x-token': this.token
-      }
+    return this.http.get(`${ base_url }/login/renew`, { 
+      headers: { 'x-token' : this.token }
     }).pipe(
-      map((resp: any) => {        
-        const { email, firstName, imagePath = '', lastName, uid, userName, mobile = '' } = resp.user;        
+      map((resp: any) => {
+        const { email, firstName, imagePath = '', lastName, uid, userName, mobile = ' ', createdUtc} = resp.user;
+        this.user = new User(firstName, lastName, email, userName, mobile, '', imagePath, [], uid, createdUtc);
 
-        this.user = new User(firstName, lastName, email, userName, mobile, '', imagePath, [], uid);
-          
         localStorage.setItem('token', resp.token);
         return true;
-      }),      
+      }),
       catchError( error => of(false) )
     );
-  }  
+  };
 
-  createUser( formData: IRegisterForm ) {
+  createUser( formData: IUserRegisterForm ) {
     return this.http.post(`${ base_url }/users`, formData);
-  }
+  };
 
   createUserCompany( user: string, company: string ) {
     return this.http.post(`${ base_url }/userCompany`, { user, company });
     // Nota: En este medoto el token lo estoy seteando en el localstorage en los metodos mas arriba porque hacen otras tareas.
+  };
 
-  }
-
-  updateUserProfile( formData: IUpdateUserProfile) {
+  updateUserProfile( formData: IUserProfileUpdate) {
     return this.http.put(`${ base_url }/users/${ this.uid}`, formData, {
       headers:  {
         'x-token' : this.token
       }
-    });    
-  }
+    }); 
+  };
 
-  login( formData: ILoginForm ) {
+  login( formData: IUserLoginForm ) {
     return this.http.post(`${ base_url }/login`, formData )
                 .pipe(
                   tap( (resp: any) => { 
-                    localStorage.setItem( 'token', resp.token );
+                    localStorage.setItem( 'token', resp.token );                    
                   })
                 );
-  }
+  };
 
-  logout () {
-    localStorage.removeItem('token');    
-  }
+  logout() {
+    this.user = null;
+    localStorage.removeItem('token');
+    this.router.navigate(['/login']);
+  };
 
-  getUserCompany() {    
-    return this.http.get(`${ base_url }/userCompany/${ this.uid }`);
-  }
+  getUserCompany() {
+    return this.http.get( `${ base_url }/userCompany/${ this.uid }`);
+  };
 
   getUserRoles() {
-    return this.http.get(`${ base_url }/userRoles/${ this.uid }`);
-  }
-}
+    return this.http.get( `${ base_url }/userRoles/${ this.uid }`);
+  };
+} 

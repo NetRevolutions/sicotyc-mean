@@ -1,51 +1,10 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnDestroy, OnInit, ViewContainerRef, ViewEncapsulation } from '@angular/core';
-
+import { Component } from '@angular/core';
 
 @Component({
-  selector: 'rate-calculation-lima-callao',
+  selector: 'app-lima-callao',
   templateUrl: './lima-callao.component.html',
-  // encapsulation: ViewEncapsulation.None,
-  // changeDetection: ChangeDetectionStrategy.OnPush,
-  exportAs: 'rate-calculation-lima-callao'
+  styleUrls: ['./lima-callao.component.scss']
 })
-export class RateCalculationLimaCallaoComponent implements OnInit, OnDestroy
-{
+export class LimaCallaoComponent {
 
-
-  /**
-   * Constructor
-   */
-  constructor(
-    private _changeDetectorRef: ChangeDetectorRef,
-    private _viewContainerRef: ViewContainerRef,
-    
-  )
-  {
-  }
-
-  // -----------------------------------------------------------------------------------------------------
-  // @ Lifecycle hooks
-  // -----------------------------------------------------------------------------------------------------
-
-  /**
-   * On init
-   */
-  ngOnInit(): void
-  {
-    
-  }
-
-  /**
-   * On destroy
-   */
-  ngOnDestroy(): void
-  {
-
-  }
-
-  // -----------------------------------------------------------------------------------------------------
-  // @ Public methods
-  // -----------------------------------------------------------------------------------------------------
-
-  
 }

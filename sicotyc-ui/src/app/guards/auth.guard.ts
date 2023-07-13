@@ -1,37 +1,69 @@
-import { Injectable } from '@angular/core';
-import { ActivatedRouteSnapshot, CanActivate, Router, RouterStateSnapshot, UrlTree } from '@angular/router';
-
-// Services
-import { UserService } from 'app/services/user.service';
-import { of } from 'rxjs';
-import { catchError, tap } from 'rxjs/operators';
+import {Injectable} from '@angular/core';
+import {
+    CanActivate,
+    CanActivateChild,
+    ActivatedRouteSnapshot,
+    RouterStateSnapshot,
+    UrlTree,
+    Router
+} from '@angular/router';
+import {Observable, catchError, of, tap} from 'rxjs';
+import {AppService} from '@services/app.service';
+import { UserService } from '@services/user.service';
 
 @Injectable({
-  providedIn: 'root'
+    providedIn: 'root'
 })
-export class AuthGuard implements CanActivate {
+export class AuthGuard implements CanActivate, CanActivateChild {
+    constructor(
+        private router: Router, 
+        private appService: AppService, 
+        private userService: UserService) {}
 
-  constructor(
-    private userService: UserService,
-    private router: Router
-  ) {}
+    canActivate(
+        next: ActivatedRouteSnapshot,
+        state: RouterStateSnapshot
+    ):
+        | Observable<boolean | UrlTree>
+        | Promise<boolean | UrlTree>
+        | boolean
+        | UrlTree {
+        //return this.getProfile();
+        return this.userService.validateToken()
+            .pipe(
+                tap( isAuthenticated => {
+                    if ( !isAuthenticated ) {
+                        this.router.navigateByUrl('/login');
+                    }
+                }),
+                catchError( error => {
+                    console.log(error);
+                    return of(error);
+                })
+            );
+    };
 
-  canActivate(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot) {     
+    canActivateChild(
+        next: ActivatedRouteSnapshot,
+        state: RouterStateSnapshot
+    ):
+        | Observable<boolean | UrlTree>
+        | Promise<boolean | UrlTree>
+        | boolean
+        | UrlTree {
+        return this.canActivate(next, state);
+    }
 
-      return this.userService.validateToken()
-        .pipe(
-          tap( isAuthenticated => {
-            if (!isAuthenticated) {
-              this.router.navigateByUrl('/sign-in');
-            }
-          }),
-          catchError( error => {
-            console.log(error);
-            return of(error)
-          })
-        );
-  }
-  
+    // async getProfile() {
+    //     if (this.appService.user) {
+    //         return true;
+    //     }
+
+    //     try {
+    //         await this.appService.getProfile();
+    //         return true;
+    //     } catch (error) {
+    //         return false;
+    //     }
+    // }
 }
