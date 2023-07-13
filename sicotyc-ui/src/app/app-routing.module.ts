@@ -10,7 +10,6 @@ import {AuthGuard} from '@guards/auth.guard';
 import {NonAuthGuard} from '@guards/non-auth.guard';
 import {ForgotPasswordComponent} from '@modules/forgot-password/forgot-password.component';
 import {RecoverPasswordComponent} from '@modules/recover-password/recover-password.component';
-import {MainMenuComponent} from '@pages/main-menu/main-menu.component';
 import {SubMenuComponent} from '@pages/main-menu/sub-menu/sub-menu.component';
 import { LimaCallaoComponent } from '@pages/operations/rate-calculation/lima-callao/lima-callao.component';
 import { ProvinceComponent } from '@pages/operations/rate-calculation/province/province.component';
@@ -18,6 +17,22 @@ import { RequestServiceEvaluationComponent } from '@pages/operations/request-ser
 import { WorkOrderCreationComponent } from '@pages/work-order/work-order-creation/work-order-creation.component';
 import { ControlDocumentsComponent } from '@pages/work-order/control-documents/control-documents.component';
 import { WorkOrderStateComponent } from '@pages/work-order/work-order-state/work-order-state.component';
+import { UsersComponent } from '@pages/maintenances/users/users.component';
+import { RolesComponent } from '@pages/maintenances/roles/roles.component';
+import { LookupCodeGroupComponent } from '@pages/maintenances/lookup/lookup-code-group/lookup-code-group.component';
+import { LookupCodeComponent } from '@pages/maintenances/lookup/lookup-code/lookup-code.component';
+import { MenusComponent } from '@pages/maintenances/menus/menus.component';
+import { DriversComponent } from '@pages/maintenances/drivers/drivers.component';
+import { VehicleComponent } from '@pages/maintenances/vehicle/vehicle.component';
+import { ComplementComponent } from '@pages/maintenances/complement/complement.component';
+import { TransportPartnersComponent } from '@pages/maintenances/transport-partners/transport-partners.component';
+import { WarehousesComponent } from '@pages/maintenances/warehouses/warehouses.component';
+import { ZonesComponent } from '@pages/maintenances/zones/zones.component';
+import { CompaniesComponent } from '@pages/maintenances/companies/companies.component';
+import { PlacesComponent } from '@pages/maintenances/places/places.component';
+import { FeesComponent } from '@pages/maintenances/fees/fees.component';
+import { FeesCompanyComponent } from '@pages/maintenances/fees-company/fees-company.component';
+import { TollsComponent } from '@pages/maintenances/tolls/tolls.component';
 
 const routes: Routes = [
     {
@@ -89,6 +104,101 @@ const routes: Routes = [
                         component: WorkOrderStateComponent,
                         data: { title: 'Estado de Documentos'}
                     }
+                ]
+            },
+            {
+                path: 'administracion',
+                children: [
+                    {
+                        path: 'cuentas-de-usuario',
+                        component: UsersComponent,
+                        data: { title: 'Administracion - Cuentas de Usuario'}
+                    },
+                    {
+                        path: 'roles',
+                        component: RolesComponent,
+                        data: { title: 'Administracion - Roles'}
+                    },
+                    {
+                        path: 'lookup',
+                        children: [
+                            {
+                                path: 'lookup-code-group',
+                                component: LookupCodeGroupComponent,
+                                data: { title: 'Administracion - Lookup - Lookup Code Group'}
+                            },
+                            {
+                                path: 'lookup-code',
+                                component: LookupCodeComponent,
+                                data: { title: 'Administracion - Lookup - Lookup Code'}
+                            }
+                        ]
+                    },
+                    {
+                        path: 'menu',
+                        component: MenusComponent,
+                        data: { title: 'Administracion - Menu'}
+                    }
+                ]
+            },
+            {
+                path: 'mantenimientos',
+                children: [
+                    {
+                        path: 'choferes',
+                        component: DriversComponent,
+                        data: { title: 'Mantenimientos - Choferes'}
+                    },
+                    {
+                        path: 'vehiculos',
+                        component: VehicleComponent,
+                        data: { title: 'Mantenimientos - Vehiculos'}
+                    },
+                    { 
+                        path: 'complementos',
+                        component: ComplementComponent,
+                        data: { title: 'Mantenimientos - Complementos'}
+                    },
+                    {
+                        path: 'transportistas',
+                        component: TransportPartnersComponent,
+                        data: { title: 'Mantenimientos - Transportistas'}
+                    },
+                    { 
+                        path: 'almacenes',
+                        component: WarehousesComponent,
+                        data: { title: 'Mantenimientos - Almacenes'}
+                    },
+                    {
+                        path: 'zonas',
+                        component: ZonesComponent,
+                        data: { title: 'Mantenimientos - Zonas'}
+                    },
+                    {
+                        path: 'clientes',
+                        component: CompaniesComponent,
+                        data: { title: 'Mantenimiento - Clientes'}
+                    },
+                    {
+                        path: 'lugares',
+                        component: PlacesComponent,
+                        data: { title: 'Mantenimientos - Lugares'}
+                    },
+                    {
+                        path: 'tarifas',
+                        component: FeesComponent,
+                        data: { title: 'Mantenimientos - Tarifas'}
+                    },
+                    {
+                        path: 'tarifas-por-agencia',
+                        component: FeesCompanyComponent,
+                        data: { title: 'Mantenimientos - Tarifas por Agencia'}
+                    },
+                    {
+                        path: 'peajes',
+                        component: TollsComponent,
+                        data: { title: 'Mantenimientos - Peajes'}
+                    }                    
                 ]
             },
             {

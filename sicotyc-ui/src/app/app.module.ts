@@ -49,6 +49,25 @@ import { WorkOrderCreationComponent } from './pages/work-order/work-order-creati
 import { ControlDocumentsComponent } from './pages/work-order/control-documents/control-documents.component';
 import { WorkOrderStateComponent } from './pages/work-order/work-order-state/work-order-state.component';
 
+// Maintenances
+import { UsersComponent } from './pages/maintenances/users/users.component';
+import { CompaniesComponent } from './pages/maintenances/companies/companies.component';
+import { DriversComponent } from './pages/maintenances/drivers/drivers.component';
+import { LookupCodeGroupComponent } from './pages/maintenances/lookup/lookup-code-group/lookup-code-group.component';
+import { LookupCodeComponent } from './pages/maintenances/lookup/lookup-code/lookup-code.component';
+import { RolesComponent } from './pages/maintenances/roles/roles.component';
+import { VehicleComponent } from './pages/maintenances/vehicle/vehicle.component';
+import { ComplementComponent } from './pages/maintenances/complement/complement.component';
+import { PointComponent } from './pages/maintenances/point/point.component';
+import { MenusComponent } from './pages/maintenances/menus/menus.component';
+import { TransportPartnersComponent } from './pages/maintenances/transport-partners/transport-partners.component';
+import { WarehousesComponent } from './pages/maintenances/warehouses/warehouses.component';
+import { ZonesComponent } from './pages/maintenances/zones/zones.component';
+import { PlacesComponent } from './pages/maintenances/places/places.component';
+import { FeesComponent } from './pages/maintenances/fees/fees.component';
+import { FeesCompanyComponent } from './pages/maintenances/fees-company/fees-company.component';
+import { TollsComponent } from './pages/maintenances/tolls/tolls.component';
+
 
 defineCustomElements();
 registerLocaleData(localeEn, 'en-EN');
@@ -83,7 +102,24 @@ registerLocaleData(localeEn, 'en-EN');
         ExternalComponent,
         WorkOrderCreationComponent,
         ControlDocumentsComponent,
-        WorkOrderStateComponent
+        WorkOrderStateComponent,
+        UsersComponent,
+        CompaniesComponent,
+        DriversComponent,
+        LookupCodeGroupComponent,
+        LookupCodeComponent,
+        RolesComponent,
+        VehicleComponent,
+        ComplementComponent,
+        PointComponent,
+        MenusComponent,
+        TransportPartnersComponent,
+        WarehousesComponent,
+        ZonesComponent,
+        PlacesComponent,
+        FeesComponent,
+        FeesCompanyComponent,
+        TollsComponent
     ],
     imports: [
         BrowserModule,
