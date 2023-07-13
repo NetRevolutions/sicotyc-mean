@@ -8,7 +8,7 @@ export class MenuService {
   menu: any[] = [
     {
       name: 'Dashboard',
-      iconClassesClasses: 'nav-iconClasses fas fa-tachometer-alt',
+      iconClasses: 'nav-iconClasses fas fa-tachometer-alt',
       children: [
         { name: 'Home', iconClasses: 'far fa-circle nav-iconClasses', path: ['/']}
       ]
@@ -24,16 +24,16 @@ export class MenuService {
     },
     {
       name: 'Ordenes de Trabajo',
-      iconClasses: 'nav-iconClasses fas fa-regular fa-note',
+      iconClasses: 'nav-iconClasses fas fa-solid fa-book',
       children: [
-        { name: 'Creacion de Ordenes de Trabajo', iconClasses: 'far fa-circle nav-iconClasses', path: ['/dashboard']},
-        { name: 'Control de Documentos', iconClasses: 'far fa-circle nav-iconClasses', path: ['/dashboard']},
-        { name: 'Estado Ordenes de Trabajo', iconClasses: 'far fa-circle nav-iconClasses', path: ['/dashboard']}
+        { name: 'Creacion de Ordenes de Trabajo', iconClasses: 'far fa-circle nav-iconClasses', path: ['/ordenes-de-trabajo/creacion']},
+        { name: 'Control de Documentos', iconClasses: 'far fa-circle nav-iconClasses', path: ['/ordenes-de-trabajo/control-documentos']},
+        { name: 'Estado Ordenes de Trabajo', iconClasses: 'far fa-circle nav-iconClasses', path: ['/ordenes-de-trabajo/estado']}
       ]
     },
     {
       name: 'Administracion',
-      iconClasses: 'nav-iconClasses fas fa-solid fa-screwdriver-wrench',
+      iconClasses: 'nav-iconClasses fas fa-solid fa-user-secret',
       children: [
         {name: 'Cuentas de Usuario', iconClasses: 'far fa-circle nav-iconClasses', path: ['/dashboard']},
         {name: 'Roles', iconClasses: 'far fa-circle nav-iconClasses', path: ['/dashboard']},
@@ -43,7 +43,7 @@ export class MenuService {
     },
     {
       name: 'Mantenimientos',
-      iconClasses: 'nav-iconClasses fas fa-duotone fa-gear',
+      iconClasses: 'nav-iconClasses fas fa-solid fa-cubes',
       children: [
         {name: 'Choferes', iconClasses: 'far fa-circle nav-iconClasses', path: ['/dashboard']},
         {name: 'Camiones', iconClasses: 'far fa-circle nav-iconClasses', path: ['/dashboard']},

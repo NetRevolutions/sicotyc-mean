@@ -15,6 +15,9 @@ import {SubMenuComponent} from '@pages/main-menu/sub-menu/sub-menu.component';
 import { LimaCallaoComponent } from '@pages/operations/rate-calculation/lima-callao/lima-callao.component';
 import { ProvinceComponent } from '@pages/operations/rate-calculation/province/province.component';
 import { RequestServiceEvaluationComponent } from '@pages/operations/request-service-evaluation/request-service-evaluation.component';
+import { WorkOrderCreationComponent } from '@pages/work-order/work-order-creation/work-order-creation.component';
+import { ControlDocumentsComponent } from '@pages/work-order/control-documents/control-documents.component';
+import { WorkOrderStateComponent } from '@pages/work-order/work-order-state/work-order-state.component';
 
 const routes: Routes = [
     {
@@ -65,6 +68,26 @@ const routes: Routes = [
                         path: 'solicitud-servicio-evaluacion',
                         component: RequestServiceEvaluationComponent,
                         data: { title: 'Solicitud de Servicio - Evaluacion'}
+                    }
+                ]
+            },
+            {
+                path: 'ordenes-de-trabajo',
+                children: [
+                    {
+                        path: 'creacion',
+                        component: WorkOrderCreationComponent,
+                        data: { title: 'Creacion'}
+                    },
+                    {
+                        path: 'control-documentos',
+                        component: ControlDocumentsComponent,
+                        data: { title: 'Control de Documentos'}
+                    },
+                    {
+                        path: 'estado',
+                        component: WorkOrderStateComponent,
+                        data: { title: 'Estado de Documentos'}
                     }
                 ]
             },
