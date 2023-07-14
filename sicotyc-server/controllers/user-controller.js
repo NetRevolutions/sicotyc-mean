@@ -5,26 +5,51 @@ const Role              = require('../models/role');
 const UserRole          = require('../models/userRole');
 const { generateJWT }   = require('../helpers/jwt');
 
-const getUsers = async(req, res = response) => {
-
-    const users = await User.find({}, 'firstName lastName userName email imagePath')    
-
-    res.json({
-        ok: true,
-        users,
-        uid: req.uid
-    });
+const getUsers = async(req, res = response) => {    
+    try {
+        const from = Number(req.query.from) || 0;
+    
+        // const users = await User.find({}, 'firstName lastName userName email imagePath');
+        const [usr, total] = await Promise.all([
+            User.find({}, 'firstName lastName userName email imagePath roles')
+            .skip( from )
+            .limit( 5 ),
+            User.countDocuments()
+        ]);
+    
+        res.json({
+            ok: true,
+            users: usr,
+            total,
+            uid: req.uid
+        });
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Error inesperado... revisar logs'
+        });
+    }
 };
 
 const getUser = async(req, res = response) => {
-     
-    const user = await User.findById({ _id: req.uid });
-
-    res.json({
-        ok: true,
-        user,
-        uid: req.uid
-    });
+    try {
+        const user = await User.findById({ _id: req.uid });
+    
+        res.json({
+            ok: true,
+            user,
+            uid: req.uid
+        });
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Error inesperado... revisar logs'
+        });
+    }     
 };
 
 const createUser = async(req, res = response) => {
@@ -32,6 +57,11 @@ const createUser = async(req, res = response) => {
     const { ...fields } = req.body;  
 
     try { 
+
+        // Asignar Role por defecto (Coordinador):
+        let role = await Role.findOne({roleName: 'Coordinador'});
+         //user.role_id = '6450800d41785afe9e588ac6'; // Role: 'Transportista'
+
         const existEmail = await User.findOne({ email: fields.email });
         if ( existEmail ) {
             return res.status(400).json({
@@ -48,6 +78,9 @@ const createUser = async(req, res = response) => {
             });
         }
 
+        // Roles
+        fields.roles = [role._id];
+
         // Creacion
         fields.createdBy = req.uid;
         fields.createdUtc = new Date();
@@ -60,12 +93,7 @@ const createUser = async(req, res = response) => {
             
         await user.save();
 
-        //console.log('user', user);      
-
-        // Asignar Role por defecto (Coordinador):
-        let role = await Role.findOne({roleName: 'Coordinador'});
-        
-        //user.role_id = '6450800d41785afe9e588ac6'; // Role: 'Transportista'
+        //console.log('user', user); 
 
         // Guardamos en la table UserRole
         const userRole = new UserRole({

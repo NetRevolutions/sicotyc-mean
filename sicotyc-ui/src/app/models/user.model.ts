@@ -17,7 +17,9 @@ export class User {
     ) { }
 
     get imageUrl() {
-        if ( this.imagePath ) {            
+        if ( !this.imagePath) {
+            return `${ base_url }/upload/users/no-image`;
+        } else if ( this.imagePath ) {            
             return `${ base_url }/upload/users/${ this.imagePath }`;
         }
         else {

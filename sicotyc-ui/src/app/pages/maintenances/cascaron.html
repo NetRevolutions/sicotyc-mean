@@ -9,7 +9,7 @@
         </div>
     </div>
 </div>
-<div *ngIf="loading" class="row">
+<div class="row">
     <div class="col-12">
         <div class="alert alert-info text-center">
           <h4 class="alert-heading">Cargando</h4>
@@ -19,11 +19,11 @@
     </div>
 </div>
 
-<div class="row" *ngIf="!loading">
+<div class="row">
     <div class="col-12">
         <div class="card">
             <div class="card-header">
-              <h3 class="card-title">Total de Usuarios ({{ totalUsers }})</h3>              
+              <h3 class="card-title">Usuarios</h3>              
             </div>
             <!-- /.card-header -->
             <div class="card-body">   
@@ -31,33 +31,24 @@
                     <table class="table table-bordered">
                       <thead>
                         <tr>                    
-                          <th class="w100">Avatar</th>
+                          <th>Avatar</th>
+                          <th>Correo</th>
                           <th>Nombre</th>
                           <th>Apellidos</th>
-                          <th>Correo</th>
-                          <th class="w100">Usuario</th>
-                          <!-- <th>Role</th> -->
-                          <th>Roles</th>
-                          <th class="text-nowrap w100">Acciones</th>
+                          <th>Role</th>
+                          <th>Auth</th>
+                          <th class="text-nowrap">Acciones</th>
                         </tr>
                       </thead>
                       <tbody>
-                        <tr *ngFor="let user of users">
-                          <td class="text-center">
-                            <img [src]="user.imageUrl" 
-                                    alt="Avatar de Usuario" 
-                                    class="avatar">
-                          </td>
-                          <td>{{user.firstName}}</td>
-                          <td>{{user.lastName}}</td>
-                          <td>{{user.email}}</td>
-                          <td>{{user.userName}}</td>
-                          <!-- <td>ewtsff</td> -->
-                          <td>
-                            <span *ngFor="let role of user.roles" class="right badge badge-primary mr-1">{{role.roleName}}</span>
-                            <!-- <span class="badge badge-success mr-1">Coordinador</span> -->
-                          </td>                    
-                          <td class="text-nowrap text-center">
+                        <tr>
+                          <td>dfsfsfa</td>
+                          <td>sfdsfsfs</td>
+                          <td>afafaf</td>
+                          <td>iuytkytj</td>
+                          <td>ewtsff</td>
+                          <td>kykytj</td>                    
+                          <td class="text-nowrap">
                               <a data-toggle="tooltip" title="Editar" data-placement="auto"><i class="fa fa-pencil text-primary mr-2"></i></a>
                               <a data-toggle="tooltip" title="Borrar" data-placement="auto"><i class="fa fa-close text-danger ml-1"></i></a>
                           </td>
@@ -65,8 +56,8 @@
                       </tbody>
                     </table>
                 </div> 
-                <button (click)="changePage(-5)" class="btn btn-secondary mr-1">Anteriores</button>
-                <button (click)="changePage(5)" class="btn btn-secondary">Siguientes</button>            
+                <button class="btn btn-secondary mr-1">Anteriores</button>
+                <button class="btn btn-secondary">Siguientes</button>            
             </div>
             <!-- /.card-body -->
             <!-- <div class="card-footer clearfix">

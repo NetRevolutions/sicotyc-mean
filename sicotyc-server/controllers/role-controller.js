@@ -2,14 +2,21 @@ const { response }  = require('express'); // Con esto hacemos que el response tr
 const Role          = require('../models/role');
 
 const getRoles = async(req, res) => {
-
-    const roles = await Role.find();
-    //const roles = await Role.find({}, 'roleName'); // Tambien se puede aplicar filtros
-
-    res.json({
-        ok: true,
-        roles
-    });
+    try {
+        const roles = await Role.find();
+        //const roles = await Role.find({}, 'roleName'); // Tambien se puede aplicar filtros
+    
+        res.json({
+            ok: true,
+            roles
+        });        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            ok: false,
+            msg: 'Error inesperado... revisar logs'
+        });
+    }
 };
 
 const getRole = async(req, res = response) => {

@@ -35,7 +35,7 @@ export class HeaderComponent implements OnInit {
             search: new UntypedFormControl(null)
         });
 
-        this.hasToken();
+        // this.hasToken();
     }
 
     logout() {
@@ -50,9 +50,7 @@ export class HeaderComponent implements OnInit {
         this.store.dispatch(new ToggleControlSidebar());
     }
 
-    hasToken() {
-        console.log('hasToken', localStorage.getItem('token') ? true : false);
-        return localStorage.getItem('token') ? true : false;
-        
-    }
+    // hasToken() {        
+    //     return localStorage.getItem('token') ? true : false;        
+    // }
 }

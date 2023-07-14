@@ -28,6 +28,14 @@ export class UserService {
 
   get uid(): string { return this.user.uid || ''; }
 
+  get headers() {
+    return {
+      headers:  {
+        'x-token' : this.token
+      }
+    };
+  }
+
   validateToken(): Observable<boolean> {
 
     return this.http.get(`${ base_url }/login/renew`, { 
@@ -83,4 +91,35 @@ export class UserService {
   getUserRoles() {
     return this.http.get( `${ base_url }/userRoles/${ this.uid }`);
   };
+
+  getUsers( from: number = 0 ) {
+
+    // http://localhost:3000/api/users?from=0
+    const url = `${ base_url }/users?from=${from}`;
+    return this.http.get( url, this.headers )
+    .pipe(
+      map( (resp: any) => {
+        const users = resp.users.map(
+          user => new User(
+            user.firstName, 
+            user.lastName, 
+            user.email, 
+            user.userName, 
+            user.mobile, 
+            '', 
+            user.imagePath, 
+            user.roles, 
+            user.uid, 
+            user.createdUtc
+            )
+        );
+        return {
+          ok: resp.ok,
+          users,
+          total: resp.total,
+          uid: resp.uid
+        };
+      })
+    );
+  }
 } 
