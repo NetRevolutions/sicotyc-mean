@@ -14,7 +14,7 @@ const UserSchema = Schema({
     imagePath                 : { type: String },
     refreshToken              : { type: String },
     refreshTokenExpiryTime    : { type: Date },
-    roles                     : { type: [ObjectId] },
+    roles                     : [{type: ObjectId, ref: 'Role'}],
     terms                     : { type: Boolean },
     createdBy                 : { type: String, required: true, default: 'SYSTEM' },
     createdUtc                : { type: Date, required: true, default: new Date() },

@@ -12,6 +12,7 @@ const getUsers = async(req, res = response) => {
         // const users = await User.find({}, 'firstName lastName userName email imagePath');
         const [usr, total] = await Promise.all([
             User.find({}, 'firstName lastName userName email imagePath roles')
+            .populate('roles', '_id roleName')         
             .skip( from )
             .limit( 5 ),
             User.countDocuments()

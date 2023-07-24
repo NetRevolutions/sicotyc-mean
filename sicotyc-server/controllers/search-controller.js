@@ -70,7 +70,8 @@ const searchByCollection = async(req, res = response) => {
             data = await Point.find({ $or: [{ pointName: regex }, { pointAliasName: regex }]});
             break;
         case 'user':
-            data = await User.find({ $or: [{ firstName: regex }, { lastName: regex }, { userName: regex }, { email: regex }]});
+            data = await User.find({ $or: [{ firstName: regex }, { lastName: regex }, { userName: regex }, { email: regex }]})
+                                    .populate('roles', '_id roleName');
             break;
         case 'vehicle':
             data = await Vehicle.find({ $or: [{ mtcNumber: regex }, { brand: regex }]})
