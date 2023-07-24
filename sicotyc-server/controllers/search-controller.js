@@ -49,30 +49,30 @@ const searchByCollection = async(req, res = response) => {
     let data = [];
 
     switch (collection) {
-        case 'Company':
+        case 'company':
             data = await Company.find({ nombreComercial: regex });
             break;
-        case 'Complement':
+        case 'complement':
             data = await Complement.find({ plate: regex })
                                     .populate('Company', 'ruc nombreComercial');
             break;
-        case 'Driver':
+        case 'driver':
             data = await Driver.find({ $or: [{ firstName: regex } , { lastName: regex }] });
             break;
-        case 'LookupCode':
+        case 'lookupCode':
             data = await LookupCode.find({ lookupCodeName: regex })
-                                    .populate('lookupCodeGroup', '_id lookupCodeGroupName');
+                                    .populate('LookupCodeGroup', '_id lookupCodeGroupName');
             break;
-        case 'LookupCodeGroup':
+        case 'lookupCodeGroup':
             data = await LookupCodeGroup.find({ lookupCodeGroupName: regex });
             break;
         case 'Point':
             data = await Point.find({ $or: [{ pointName: regex }, { pointAliasName: regex }]});
             break;
-        case 'User':
+        case 'user':
             data = await User.find({ $or: [{ firstName: regex }, { lastName: regex }, { userName: regex }, { email: regex }]});
             break;
-        case 'Vehicle':
+        case 'vehicle':
             data = await Vehicle.find({ $or: [{ mtcNumber: regex }, { brand: regex }]})
                                     .populate('Company', 'ruc nombreComercial');
             break;    
