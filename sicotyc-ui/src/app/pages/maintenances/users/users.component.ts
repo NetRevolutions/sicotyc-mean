@@ -22,7 +22,7 @@ export class UsersComponent implements OnInit {
     public loading: boolean = true;
 
     constructor(
-        private userService: UserService,        
+        private userService: UserService,
         private searchesService: SearchesService,
         private toastr: ToastrService
     ) {}
@@ -34,7 +34,7 @@ export class UsersComponent implements OnInit {
     loadUsers() {
         this.userService.getUsers(this.from).subscribe({
             next: (usersData: any) => {
-                if (usersData.ok) {                    
+                if (usersData.ok) {
                     this.totalUsers = usersData.total;
                     this.users = usersData.users;
                     this.usersTemp = usersData.users;
@@ -50,7 +50,7 @@ export class UsersComponent implements OnInit {
                 );
                 console.error(err.error.msg);
             }
-        });        
+        });
     }
 
     changePage(val: number) {
