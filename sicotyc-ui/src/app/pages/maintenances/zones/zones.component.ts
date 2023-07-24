@@ -1,10 +1,8 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
-  selector: 'app-zones',
-  templateUrl: './zones.component.html',
-  styleUrls: ['./zones.component.scss']
+    selector: 'app-zones',
+    templateUrl: './zones.component.html',
+    styleUrls: ['./zones.component.scss']
 })
-export class ZonesComponent {
-
-}
+export class ZonesComponent {}

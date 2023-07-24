@@ -1,10 +1,8 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 
 @Component({
-  selector: 'app-transport-partners',
-  templateUrl: './transport-partners.component.html',
-  styleUrls: ['./transport-partners.component.scss']
+    selector: 'app-transport-partners',
+    templateUrl: './transport-partners.component.html',
+    styleUrls: ['./transport-partners.component.scss']
 })
-export class TransportPartnersComponent {
-
-}
+export class TransportPartnersComponent {}

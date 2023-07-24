@@ -6,12 +6,12 @@ import {
     HostBinding
 } from '@angular/core';
 import {Validators, FormBuilder} from '@angular/forms';
-import { Router } from '@angular/router';
+import {Router} from '@angular/router';
 
 // Services
-import { ToastrService } from 'ngx-toastr';
-import { AppService } from '@services/app.service';
-import { UserService } from '@services/user.service';
+import {ToastrService} from 'ngx-toastr';
+import {AppService} from '@services/app.service';
+import {UserService} from '@services/user.service';
 
 @Component({
     selector: 'app-login',
@@ -41,38 +41,44 @@ export class LoginComponent implements OnInit, OnDestroy {
     // });
 
     public loginForm = this.fb.group({
-        email: [ localStorage.getItem('email') || '', [Validators.required, Validators.email]],
+        email: [
+            localStorage.getItem('email') || '',
+            [Validators.required, Validators.email]
+        ],
         password: ['', [Validators.required]],
-        remember: [false]  
+        remember: [false]
     });
 
     ngOnInit() {
         this.renderer.addClass(
             document.querySelector('app-root'),
             'login-page'
-        );        
+        );
     }
 
     async loginByAuth() {
         if (this.loginForm.valid) {
             this.isAuthLoading = true;
             //await this.appService.loginByAuth(this.loginForm.value);
-            this.userService.login( { 
-                email: this.loginForm.value['email'], 
-                password: this.loginForm.value['password'], 
-                remember: this.loginForm.value['remember']
-            } )
-            .subscribe( resp => {
-                if ( this.loginForm.get('remember').value ) {
-                    localStorage.setItem( 'email', this.loginForm.get('email').value );
-                }
-                else {
-                    localStorage.removeItem( 'email' );
-                }
-                this.isAuthLoading = false;
-                this.router.navigateByUrl('/');
-                this.toastr.success('Login success');
-            });
+            this.userService
+                .login({
+                    email: this.loginForm.value['email'],
+                    password: this.loginForm.value['password'],
+                    remember: this.loginForm.value['remember']
+                })
+                .subscribe((resp) => {
+                    if (this.loginForm.get('remember').value) {
+                        localStorage.setItem(
+                            'email',
+                            this.loginForm.get('email').value
+                        );
+                    } else {
+                        localStorage.removeItem('email');
+                    }
+                    this.isAuthLoading = false;
+                    this.router.navigateByUrl('/');
+                    this.toastr.success('Login success');
+                });
         } else {
             this.toastr.error('Form is not valid!');
         }

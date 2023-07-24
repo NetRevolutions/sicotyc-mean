@@ -8,7 +8,7 @@ import {UiState} from '@/store/ui/state';
 import {Observable} from 'rxjs';
 
 // Services
-import { UserService } from '@services/user.service';
+import {UserService} from '@services/user.service';
 
 const BASE_CLASSES = 'main-header navbar navbar-expand';
 @Component({
@@ -21,7 +21,7 @@ export class HeaderComponent implements OnInit {
     public ui: Observable<UiState>;
     public searchForm: UntypedFormGroup;
 
-    constructor(        
+    constructor(
         private userService: UserService,
         private store: Store<AppState>
     ) {}
@@ -50,7 +50,7 @@ export class HeaderComponent implements OnInit {
         this.store.dispatch(new ToggleControlSidebar());
     }
 
-    // hasToken() {        
-    //     return localStorage.getItem('token') ? true : false;        
+    // hasToken() {
+    //     return localStorage.getItem('token') ? true : false;
     // }
 }

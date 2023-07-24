@@ -9,16 +9,17 @@ import {
 } from '@angular/router';
 import {Observable, catchError, of, tap} from 'rxjs';
 import {AppService} from '@services/app.service';
-import { UserService } from '@services/user.service';
+import {UserService} from '@services/user.service';
 
 @Injectable({
     providedIn: 'root'
 })
 export class AuthGuard implements CanActivate, CanActivateChild {
     constructor(
-        private router: Router, 
-        private appService: AppService, 
-        private userService: UserService) {}
+        private router: Router,
+        private appService: AppService,
+        private userService: UserService
+    ) {}
 
     canActivate(
         next: ActivatedRouteSnapshot,
@@ -29,19 +30,18 @@ export class AuthGuard implements CanActivate, CanActivateChild {
         | boolean
         | UrlTree {
         //return this.getProfile();
-        return this.userService.validateToken()
-            .pipe(
-                tap( isAuthenticated => {
-                    if ( !isAuthenticated ) {
-                        this.router.navigateByUrl('/login');
-                    }
-                }),
-                catchError( error => {
-                    console.log(error);
-                    return of(error);
-                })
-            );
-    };
+        return this.userService.validateToken().pipe(
+            tap((isAuthenticated) => {
+                if (!isAuthenticated) {
+                    this.router.navigateByUrl('/login');
+                }
+            }),
+            catchError((error) => {
+                console.log(error);
+                return of(error);
+            })
+        );
+    }
 
     canActivateChild(
         next: ActivatedRouteSnapshot,
