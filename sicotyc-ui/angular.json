@@ -41,7 +41,8 @@
                             "gatekeeper-client-sdk",
                             "path",
                             "os",
-                            "fs"
+                            "fs",
+                            "sweetalert2"
                         ]
                     },
                     "configurations": {
@@ -104,9 +105,12 @@
                         ],
                         "styles": [
                             "src/styles.scss",
-                            "node_modules/ngx-toastr/toastr.css"
+                            "node_modules/ngx-toastr/toastr.css",
+                            "node_modules/admin-lte/plugins/sweetalert2/sweetalert2.all.min.css"
                         ],
-                        "scripts": []
+                        "scripts": [
+                            "node_modules/admin-lte/plugins/sweetalert2/sweetalert2.all.min.js"
+                        ]
                     }
                 },
                 "lint": {

@@ -3,7 +3,7 @@ export interface IUserProfileUpdate {
     lastName: string;
     userName: string;
     mobile: string;
-    email: string;   
+    email: string;
     // ruc: string; 
     // nombreComercial: string; 
     // companyEmail: string; 
