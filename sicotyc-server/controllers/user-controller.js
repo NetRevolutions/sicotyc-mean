@@ -132,9 +132,7 @@ const createUser = async(req, res = response) => {
 
 
 const updateUser = async(req, res = response) => {
-
-    // TODO: Validar token y comprobar si es el usuario correcto
-
+        
     const uid = req.params.id;
 
     try {
@@ -170,7 +168,8 @@ const updateUser = async(req, res = response) => {
             }
         }
 
-        // Actualizacion        
+        // Actualizacion       
+        fields.password = userDB.password; 
         fields.lastModifiedBy = req.uid;
         fields.lastModifiedUtc = new Date();
 
