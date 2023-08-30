@@ -51,7 +51,8 @@
                                     <img
                                         [src]="user.imageUrl"
                                         alt="Avatar de Usuario"
-                                        class="avatar"
+                                        class="avatar cursor-pointer"
+                                        (click)="openModal(user)"
                                     />
                                 </td>
                                 <td>{{ user.firstName }}</td>
@@ -59,17 +60,20 @@
                                 <td>{{ user.email }}</td>
                                 <td>{{ user.userName }}</td>
                                 <!-- <td>ewtsff</td> -->
-                                <td class="w-25">                                    
-                                    <angular2-multiselect 
-                                        [(ngModel)]="user.roles" 
-                                        [data]="roles"                                     
-                                        [settings]="dropdownSettings" 
-                                        (onSelect)="asignRole(user)" 
+                                <td class="w-25">
+                                    <angular2-multiselect
+                                        [(ngModel)]="user.roles"
+                                        [data]="roles"
+                                        [settings]="dropdownSettings"
+                                        (onSelect)="asignRole(user)"
                                         (onDeSelect)="asignRole(user)"
                                         (onSelectAll)="onRoleSelectAll($event)"
-                                        (onDeSelectAll)="onRoleDeSelectAll($event)">
+                                        (onDeSelectAll)="
+                                            onRoleDeSelectAll($event)
+                                        "
+                                    >
                                     </angular2-multiselect>
-                                    
+
                                     <!-- <span
                                         *ngFor="let role of user.roles"
                                         [ngClass]="[

@@ -29,11 +29,11 @@ export class UserService {
 
     get token(): string {
         return localStorage.getItem('token') || '';
-    };
+    }
 
     get uid(): string {
         return this.user.uid || '';
-    };
+    }
 
     get headers() {
         return {
@@ -41,7 +41,7 @@ export class UserService {
                 'x-token': this.token
             }
         };
-    };
+    }
 
     validateToken(): Observable<boolean> {
         return this.http
@@ -78,20 +78,24 @@ export class UserService {
                 }),
                 catchError((error) => of(false))
             );
-    };
+    }
 
     createUser(formData: IUserRegisterForm) {
         return this.http.post(`${base_url}/users`, formData);
-    };
+    }
 
     createUserCompany(user: string, company: string) {
         return this.http.post(`${base_url}/userCompany`, {user, company});
         // Nota: En este medoto el token lo estoy seteando en el localstorage en los metodos mas arriba porque hacen otras tareas.
-    };
+    }
 
     updateUserProfile(formData: IUserProfileUpdate) {
-        return this.http.put(`${base_url}/users/${this.uid}`, formData, this.headers);
-    };
+        return this.http.put(
+            `${base_url}/users/${this.uid}`,
+            formData,
+            this.headers
+        );
+    }
 
     login(formData: IUserLoginForm) {
         return this.http.post(`${base_url}/login`, formData).pipe(
@@ -99,21 +103,21 @@ export class UserService {
                 localStorage.setItem('token', resp.token);
             })
         );
-    };
+    }
 
     logout() {
         this.user = null;
         localStorage.removeItem('token');
         this.router.navigate(['/login']);
-    };
+    }
 
     getUserCompany() {
         return this.http.get(`${base_url}/userCompany/${this.uid}`);
-    };
+    }
 
     getUserRoles() {
         return this.http.get(`${base_url}/userRoles/${this.uid}`);
-    };
+    }
 
     getUsers(from: number = 0) {
         // http://localhost:3000/api/users?from=0
@@ -143,14 +147,18 @@ export class UserService {
                 };
             })
         );
-    };
+    }
 
-    deleteUser( user: User ) {                
-        const url = `${base_url}/users/${ user.uid }`;
-        return this.http.delete( url, this.headers );
-    };
+    deleteUser(user: User) {
+        const url = `${base_url}/users/${user.uid}`;
+        return this.http.delete(url, this.headers);
+    }
 
     saveUser(user: User) {
-        return this.http.put(`${base_url}/users/${user.uid}`, user, this.headers);
-    };
+        return this.http.put(
+            `${base_url}/users/${user.uid}`,
+            user,
+            this.headers
+        );
+    }
 }

@@ -15,7 +15,7 @@ import {uiReducer} from './store/ui/reducer';
 import {defineCustomElements} from '@profabric/web-components/loader';
 
 // Modules
-import { AngularMultiSelectModule } from 'angular2-multiselect-dropdown';
+import {AngularMultiSelectModule} from 'angular2-multiselect-dropdown';
 
 // Components
 import {AppComponent} from './app.component';
@@ -68,6 +68,7 @@ import {PlacesComponent} from './pages/maintenances/places/places.component';
 import {FeesComponent} from './pages/maintenances/fees/fees.component';
 import {FeesCompanyComponent} from './pages/maintenances/fees-company/fees-company.component';
 import {TollsComponent} from './pages/maintenances/tolls/tolls.component';
+import {ModalImagenComponent} from './components/modal-imagen/modal-imagen.component';
 
 defineCustomElements();
 registerLocaleData(localeEn, 'en-EN');
@@ -119,7 +120,8 @@ registerLocaleData(localeEn, 'en-EN');
         PlacesComponent,
         FeesComponent,
         FeesCompanyComponent,
-        TollsComponent
+        TollsComponent,
+        ModalImagenComponent
     ],
     imports: [
         BrowserModule,
@@ -135,7 +137,7 @@ registerLocaleData(localeEn, 'en-EN');
             positionClass: 'toast-top-right',
             preventDuplicates: true
         }),
-        ProfabricComponentsModule        
+        ProfabricComponentsModule
     ],
     providers: [],
     bootstrap: [AppComponent]
